@@ -8,9 +8,11 @@ image: /site_images/CBW_RNA_seq_icon.jpg
 home: https://bioinformaticsdotca.github.io/rnaseq_2018
 ---
 
+** Optional: Unix Review Session 5:30 pm May 27**   
+
 | | **Day 1** | | **Day 2** | | **Day 3** |  
 | :---: | :---: | :---: | :---: |:---: | :---: |  
-| | **Monday, May 27** | | **Tuesday, May 28** | | **Wednesday, May 29** |  
+| | **Monday, May 28** | | **Tuesday, May 29** | | **Wednesday, May 30** |  
 | 8:00 | <font color="green">*Registration and Breakfast*</font> | 8:00 | <font color="green">*Breakfast*</font> | 8:00 | <font color="green">*Breakfast*</font> |  
 | 8:30 | <font color="purple">Welcome (Ann)</font> | 8:30 | <font color="purple">Module 3: Expression and Differential Expression (Obi)</font> | 8:30 | <font color="purple">Module 6: Genome Guided and Genome-Free Transcriptome Assembly  (Brian)</font> |   
 | 9:00 | <font color="purple">Module 0: Introduction to Cloud Computing (Obi)</font> | | | | |  
