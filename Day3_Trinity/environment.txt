@@ -1,0 +1,5 @@
+
+export TRINITY_HOME=/usr/local/trinity
+export TRINOTATE_HOME=/usr/local/bin/Trinotate
+export TRANSDECODER_HOME=/usr/local/bin/TransDecoder-3.0.1/
+export PATH=${TRINITY_HOME}:${TRINOTATE_HOME}:${TRANSDECODER_HOME}:/usr/local/bin/signalp-4.1/:/usr/local/bin/tmhmm-2.0c/bin:${PATH}
