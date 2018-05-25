@@ -16,7 +16,7 @@ Pre-readings, pre-work, and laptop setup instructions can be found [here](https:
 
 We are using Google Classroom for discussion. Join the Class at https://classroom.google.com, select the "+" symbol in the upper right corner, click on "Join Class" and enter the class code provided to you.
 
-The full course notes are available as a [single PDF]().  
+The full course notes are available as a [single PDF](https://drive.google.com/open?id=1s3N9zS_nQx3nGTyeWCjDdpFY_bEBTZry).  
 
 ***
 # Day 1 <a id="day1"></a>
@@ -31,7 +31,7 @@ The full course notes are available as a [single PDF]().
 
 *<font color="#827e9c">Obi Griffith</font>* 
 
-[Lecture]()
+[Lecture](https://drive.google.com/open?id=16iGwgvG2qBe2uWG6EmE63MDUF9wmWCx4)
 
 * We have set up 30 instances on the Amazon cloud - one for each student. In order to log in to your instance, you will need a security certificate. If you plan on using Linux or Mac OS X, please download [this certificate](http://main.oicrcbw.ca/private/CBWNY.pem). Otherwise if you plan on using Windows (with Putty and Winscp), please download [this certificate](http://main.oicrcbw.ca/private/CBWNY.ppk).
 
@@ -41,11 +41,11 @@ The full course notes are available as a [single PDF]().
 
 *<font color="#827e9c">Malachi Griffith</font>* 
 
-[Lecture]()   
+[Lecture](https://drive.google.com/open?id=1iS1gJkQfmfjbtUtm0xPa0Un1Kc6zdUH_)   
 
 ### Lab Practical
 
-[Lab practical]()
+[Lab practical](https://drive.google.com/open?id=1XoMA39kL4tRS0T2I8Wu6odbzLoFgwAYd)
 
   [Installation](https://github.com/griffithlab/rnaseq_tutorial/wiki/Installation)
   
@@ -64,21 +64,7 @@ The full course notes are available as a [single PDF]().
 
 *<font color="#827e9c">Fouad Yousif</font>* 
 
-[Lecture]()
-
-### Lab Practical
-
-[Lab Practical]()
-
-  [Adapter Trim](https://github.com/griffithlab/rnaseq_tutorial/wiki/Adapter-Trim)
-  
-  [Alignment](https://github.com/griffithlab/rnaseq_tutorial/wiki/Alignment)
-  
-  [IGV](https://github.com/griffithlab/rnaseq_tutorial/wiki/IGV-Tutorial)
-
-  [Alignment Visualization](https://github.com/griffithlab/rnaseq_tutorial/wiki/PostAlignment-Visualization)
-  
-  [Alignment QC](https://github.com/griffithlab/rnaseq_tutorial/wiki/PostAlignment-QC)
+[Lecture](https://drive.google.com/open?id=1qCsjyOGSVVRt5pO4h6rCLkO3vrDxlu0M)
 
 ## Integrated Assignment
 
@@ -99,11 +85,27 @@ Paper: [Recurrent chimeric RNAs enriched in human prostate cancer identified by 
 
 *<font color="#827e9c">Obi Griffith</font>* 
 
-[Lecture]()  
- 
-### Lab Practical
+[Lecture](https://drive.google.com/open?id=1mIzbj7DkMcP8nNskdq4PllkFucZdtWv1)
 
-[Lab Practical]()
+## Module 2: RNA-seq Alignment and Visualization Lab Practical
+
+*<font color="#827e9c">Fouad Yousif</font>* 
+
+[Lab Practical](https://drive.google.com/open?id=1CgEtVNY-B3-p0j-4CjGNvU0iwFetZlgE)
+
+  [Adapter Trim](https://github.com/griffithlab/rnaseq_tutorial/wiki/Adapter-Trim)
+  
+  [Alignment](https://github.com/griffithlab/rnaseq_tutorial/wiki/Alignment)
+  
+  [IGV](https://github.com/griffithlab/rnaseq_tutorial/wiki/IGV-Tutorial)
+
+  [Alignment Visualization](https://github.com/griffithlab/rnaseq_tutorial/wiki/PostAlignment-Visualization)
+  
+  [Alignment QC](https://github.com/griffithlab/rnaseq_tutorial/wiki/PostAlignment-QC)
+ 
+## Module 3: Expression and Differential Expression Lab Practical
+
+[Lab Practical](https://drive.google.com/open?id=1ntdvisFFxq1k449Sr-znuG8o2Y3bsAiY)
 
  [Expression](https://github.com/griffithlab/rnaseq_tutorial/wiki/Expression)
  
@@ -116,26 +118,6 @@ Paper: [Recurrent chimeric RNAs enriched in human prostate cancer identified by 
 *<font color="#827e9c">Malachi Griffith</font>* 
 
 [Kallisto](https://github.com/griffithlab/rnaseq_tutorial/wiki/Kallisto)  
-
-## Module 5: Isoform Discovery and Alternative Expression
-
-*<font color="#827e9c">Malachi Griffith</font>* 
-
-[Lecture]()  
-
-### Lab Practical
-
-[Lab Practical]()
-
-  [Ref Guided](https://github.com/griffithlab/rnaseq_tutorial/wiki/Reference-Guided-Transcript-Assembly)
-  
-  [De novo](https://github.com/griffithlab/rnaseq_tutorial/wiki/de-novo-Transcript-Assembly)
-  
-  [Merging](https://github.com/griffithlab/rnaseq_tutorial/wiki/Transcript-Assembly-Merge)
-  
-  [Differential Splicing](https://github.com/griffithlab/rnaseq_tutorial/wiki/Differential-Splicing)
-  
-  [Splicing Visualization](https://github.com/griffithlab/rnaseq_tutorial/wiki/Transcript-Assembly-Visualization)
 
 ## Integrated Assignment
 
@@ -151,22 +133,22 @@ For additional resources, tutorials, future directions, and more please refer to
 
 # Day 3 <a id="day3"></a>
 
-## Module 6: Genome-Free De Novo Transcriptome Assembly
+## Module 5: Genome Guided and Genome-Free Transcriptome Assembly
 
 *<font color="#827e9c">Brian Haas</font>* 
 
-[Lecture]()  
+[Lecture](https://drive.google.com/open?id=1cZgeKxSFysUReMhgZxstI112qX8xq8Uv)  
 
 [Bandage](https://rrwick.github.io/Bandage/)  
 
 [Lab practical](https://bioinformaticsdotca.github.io/rnaseq_2017_tutorial6)  
 
 
-## Module 7: Functional Annotation and Analysis of Transcripts
+## Module 6: Functional Annotation and Analysis of Transcripts
 
 *<font color="#827e9c">Brian Haas</font>* 
 
-[Lecture]()  
+[Lecture](https://drive.google.com/open?id=1b1opRzV_IK4QSJHXo-B-iQvBFenV_23h)  
 
 [Lab practical](https://bioinformaticsdotca.github.io/rnaseq_2017_tutorial7)  
 
