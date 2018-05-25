@@ -12,7 +12,7 @@ Welcome to Informatics for RNA-Seq Analysis 2018.
 
 The course schedule can be found [here](https://bioinformaticsdotca.github.io/rnaseq_2018_schedule).
 
-Pre-readings, pre-work, and laptop setup instructions can be found [here](https://bioinformaticsdotca.github.io/rnaseq_2018_prework).  
+Pre-readings, pre-work, and laptop setup instructions can be found [here](https://bioinformaticsdotca.github.io/rnaseq_prework_2018).  
 
 We are using Google Classroom for discussion. Join the Class at https://classroom.google.com, select the "+" symbol in the upper right corner, click on "Join Class" and enter the class code provided to you.
 
