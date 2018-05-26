@@ -6,13 +6,12 @@ The data set that we'll be leveraging for this application are human RNA-Seq dat
 
 >This excercise provides a quick introduction to the Tuxedo2 toolkit and leverages only a single small pair of fastq files and a 'miniaturized' version of the X chromosome containing ~100 genes.  For more detailed exploration of genome-guided assembly, you are encouraged to read the Tuxedo2 protocol paper and leverage the complete data sets involving multiple sample replicates.
 
->We could have used the earlier C. glabrata data for this exercise, but the C. glabrata genome is relatively boring with respect to gene structure, as there are few genes with introns.  The human genome is arguably more exciting with most genes containing introns and alternative splicing of isoforms is prevalent.  (No offense to C. glabrata researchers).
 
 ## Data Overview
 
 The data sets we'll use for genome-guided assembly are located at:
 
-    % ls ~/workshop_materials/transcriptomics/mini_humanX/
+    % ls ~/CourseData/RNA_data/trinity_trinotate_tutorial_2018/mini_humanX/
 
 .
 
@@ -36,7 +35,7 @@ In your home directory, create a new workspace called 'workspace_GG' (with the '
 
 Create symbolic links (shortcuts) to our reference genome, annotation, and read files:
 
-    %  ln -s ~/workshop_materials/transcriptomics/mini_humanX/* .
+    %  ln -s ~/CourseData/RNA_data/trinity_trinotate_tutorial_2018/mini_humanX/* .
 
 
 Verify that the links show up in your workspace:
@@ -171,13 +170,14 @@ If your RNA-Seq sample differs sufficiently from your reference genome and you'd
 Run genome-guided Trinity leveraging our hisat2-aligned reads like so:
 
     %  $TRINITY_HOME/Trinity --genome_guided_bam alignments.hisat2.bam \
-           --CPU 2 --max_memory 1G --genome_guided_max_intron 5000
+           --CPU 2 --max_memory 1G --genome_guided_max_intron 5000 \
+	   --output trinity_out_dir_GG
 
-Once Trinity completes, you'll once again a trinity_out_dir/ in your new workspace, and in this case it'll contain the resulting assembly as 'trinity-GG.fasta'.
+Once Trinity completes, you'll once again a trinity_out_dir_GG/ in your new workspace, and in this case it'll contain the resulting assembly as 'trinity-GG.fasta'.
 
 Examine this 'trinity-GG.fasta' file:
 
-    %  less trinity_out_dir/Trinity-GG.fasta
+    %  less trinity_out_dir_GG/Trinity-GG.fasta
 
 .
 
@@ -206,12 +206,22 @@ We'll use the GMAP software to align the Trinity transcripts to our reference ge
 
     % ${TRINITY_HOME}/util/misc/process_GMAP_alignments_gff3_chimeras_ok.pl \
          --genome minigenome.fa \
-         --transcripts trinity_out_dir/Trinity-GG.fasta \
+         --transcripts trinity_out_dir_GG/Trinity-GG.fasta \
          --SAM | samtools view -Sb | samtools sort -o trinity-GG.gmap.bam
 
 Index the bam file and import it into IGV to view alongside the aligned reads and the stringtie transcripts.
 
 >How do the Trinity-reconstructed transcripts compare to StringTie?
 
+
+
+## Genome-free de novo assembly
+
+Next, try assembling the reads directly, without using the genome sequence:
+
+
+    %  $TRINITY_HOME/Trinity --left reads_1.fq.gz --right reads_2.fq.gz \
+           --seqType fq --CPU 2 --max_memory 1G \
+	   --output trinity_out_dir
 
 
