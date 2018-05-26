@@ -2,55 +2,45 @@
 
 The following details the steps involved in:
 
-*	Generating a Trinity de novo RNA-Seq assembly
-*   Evaluating the quality of the assembly
+*   Generating a Trinity de novo RNA-Seq assembly
 *   Quantifying transcript expression levels
 *   Identifying differentially expressed (DE) transcripts
 *   Functionally annotating transcripts using Trinotate and predicting coding regions using TransDecoder
 *   Examining functional enrichments for DE transcripts using GOseq
 *   Interactively Exploring annotations and expression data via TrinotateWeb
 
-All required software and data are provided pre-installed on an Amazon EC2 AMI. 
 
-The workshop materials here expect that you have a minimal familiarity with UNIX.
+## Setting up your environment
 
-After launching and connecting to your running instance of the AMI, change your working directory to the base directory of these workshop materials.  We'll get there by moving down three directories:
+Before we begin, set up your environment like so:
 
-        %  cd workshop_materials
-
-        %  cd transcriptomics
-
-        %  cd KrumlovTrinityWorkshopJan2018
-
->Yes, you could have just 'cd workshop_materials/transcriptomics/KrumlovTrinityWorkshopJan2018', but here we're taking the slower scenic route. Feel free to look around and run 'ls' to see what other files or directories are there along the way and get a feel for where you are in the file system - which is particularly useful if you're new to unix.
-
-This 'KrumlovTrinityWorkshopJan2018' will be the base working directory for all the exercises below. We'll create other subdirectories here and move back and forth to our various workspaces that we generate along the way.
+    % source ~/CourseData/RNA_data/trinity_trinotate_tutorial_2018/environment.txt
 
 
-## Before We Begin
+## Create your workspace
 
-Below, we refer to '%' as the terminal command prompt, and we use environmental variables such as $TRINITY_HOME and $TRINOTATE_HOME as shortcuts to referring to their installation directories in the AMI image.  To view the path to the installation directories, you can simply run:
+    % mkdir ~/trinity_and_trinotate
 
-     %   echo $TRINITY_HOME
-
-Also, some commands can be fairly long to type in, an so they'll be more easily displayed in this document, we separate parts of the command with '\\' characters and put the rest of the command on the following line.  Similarly in unix you can type '\[return]' and you can continue to type in the rest of the command on the new line in the terminal.
-
-For viewing text files, we'll use the unix utilities 'head' (look at the top few lines), 'cat' (print the entire contents of the file), and 'less' (interactively page through the file), and for viewing PDF formatted files, we'll use the 'xpdf' viewer utility.
-
-Before we begin, let's slightly update our PATH setting to ensure certain Trinity-plugins will be found properly.
-
-    %   export PATH=$TRINITY_HOME/trinity-plugins/BIN/:${PATH}
-
-
+    % cd ~/trinity_and_trinotate
+    
 ### Data Content:
 
 For this course we will be using the data from this paper: Defining the transcriptomic landscape of Candida glabrata by RNA-Seq.  [Linde et al. Nucleic Acids Res. 2015](http://www.ncbi.nlm.nih.gov/pubmed/?term=25586221)    This work provides a detailed RNA-Seq-based analysis of the transcriptomic landscape of C. glabrata in nutrient-rich media (WT), as well as under nitrosative stress (GSNO), in addition to other conditions, but we'll restrict ourselves to just WT and GSNO conditions for demonstration purposes in this workshop.
 
-There are paired-end FASTQ formatted Illlumina read files for each of the two conditions, with three biological replicates for each.  All RNA-Seq data sets can be found in the data/ subdirectory:
+There are paired-end FASTQ formatted Illlumina read files for each of the two conditions, with three biological replicates for each.
 
-       %   ls -1 data | grep fastq
+Copy all these data to your workspace like so:
+
+     %  cp -r ~/CourseData/RNA_data/trinity_trinotate_tutorial_2018/C_glabrata data
+
+
+
+All RNA-Seq data sets can be found in the data/ subdirectory:
+
+       %   ls -1 data/* | grep fastq
 
 .
+
 
     GSNO_SRR1582646_1.fastq
     GSNO_SRR1582646_2.fastq
@@ -102,9 +92,6 @@ Using this samples.txt file, perform de novo transcriptome assembly of the reads
           --CPU 2 --max_memory 2G --min_contig_length 150
 
 
->Note, if you see a message about not being able to identify the version of Java, please just ignore it.
-
-
 Running Trinity on this data set may take 10 to 15 minutes.  You'll see it progress through the various stages, starting with Jellyfish to generate the k-mer catalog, then followed by Inchworm to assemble 'draft' contigs, Chrysalis to cluster the contigs and build de Bruijn graphs, and finally Butterfly for tracing paths through the graphs and reconstructing the final isoform sequences. 
 
 Running a typical Trinity job requires ~1 hour and ~1G RAM per ~1 million PE reads. You'd normally run it on a high-memory machine and let it churn for hours or days.
@@ -140,199 +127,8 @@ It is often the case that multiple isoforms will be reconstructed for the same '
 
 There are several ways to quantitatively as well as qualitatively assess the overall quality of the assembly, and we outline many of these methods at our [Trinity wiki](https://github.com/trinityrnaseq/trinityrnaseq/wiki/Transcriptome-Assembly-Quality-Assessment).  
 
+For the sake of time, we're going to skip this as part for now.
 
-### Assembly Statistics that are *NOT* very useful
-
-You can count the number of assembled transcripts by using 'grep' to retrieve only the FASTA header lines and piping that output into 'wc' (word count utility) with the '-l' parameter to just count the number of lines.
-
-    % grep '>' trinity_out_dir/Trinity.fasta | wc -l
-
->How many were assembled?
-
-It's useful to know how many transcript contigs were assembled, but it's not very informative.  The deeper you sequence, the more transcript contigs you will be able to reconstruct.  It's not unusual to assemble over a million transcript contigs with very deep data sets and complex transcriptomes, but as you 'll see below (in the section containing the more informative guide to assembly assessment) a fraction of the transcripts generally best represent the input RNA-Seq reads.
-
-
-#### Examine assembly stats
-
-Capture some basic statistics about the Trinity assembly:
-
-     % $TRINITY_HOME/util/TrinityStats.pl trinity_out_dir/Trinity.fasta
-
-which should generate data like so.  Note your numbers may vary slightly, as the assembly results are not deterministic.
-
-    ################################
-    ## Counts of transcripts, etc.
-    ################################
-    Total trinity 'genes':	683
-    Total trinity transcripts:	687
-    Percent GC: 44.39
-
-    ########################################
-    Stats based on ALL transcript contigs:
-    ########################################
-
-	Contig N10: 742
-	Contig N20: 525
-	Contig N30: 423
-	Contig N40: 346
-	Contig N50: 300
-
-	Median contig length: 216
-	Average contig: 279.85
-	Total assembled bases: 192257
-
-
-    #####################################################
-    ## Stats based on ONLY LONGEST ISOFORM per 'GENE':
-    #####################################################
-
-	Contig N10: 728
-	Contig N20: 524
-	Contig N30: 420
-	Contig N40: 343
-	Contig N50: 296
-
-	Median contig length: 215
-	Average contig: 278.14
-	Total assembled bases: 189969
-
-
-The total number of reconstructed transcripts should match up identically to what we counted earlier with our simple 'grep | wc' command.  The total number of 'genes' is also reported - and simply involves counting up the number of unique transcript identifier prefixes (without the _i isoform numbers).  When the 'gene' and 'transcript' identifiers differ, it's due to transcripts being reported as alternative isoforms for the same gene.  In our tiny example data set, we reconstruct only a  small number of alternative isoforms, and note that alternative splicing in this yeast species may be fairly rare. Tackling an insect or mammal transcriptome would be expected to yield many alternative isoforms.
-
-You'll also see 'Contig N50' values reported.  You'll remmeber from the earlier lectures on genome assembly that the 'N50 statistic indicates that at least half of the assembled bases are in contigs of at least that contig length'.  We extend the N50 statistic to provide N40, N30, etc. statistics with similar meaning. As the N-value is decreased, the corresponding length will increase.  
-
-Most of this is not quantitatively useful, and the values are only reported for historical reasons - it's simply what everyone used to do in the early days of transcriptome assembly. The N50 statistic in RNA-Seq assembly can be easily biased in the following ways:
-
-* Overzealous reconstruction of long alternatively spliced isoforms: If an assembler tends to generate many different 'versions' of splicing for a gene, such as in a combinatorial way, and those isoforms tend to have long sequence lengths, the N50 value will be skewed towards a higher value.
-
-* Highly sensitive reconstruction of lowly expressed isoforms:  If an assembler is able to reconstruct transcript contigs for those transcirpts that are very lowly expressed, these contigs will tend to be short and numerous, biasing the N50 value towards lower values.  As one sequences deeper, there will be more evidence (reads) available to enable reconstruction of these short lowly expressed transcripts, and so deeper sequencing can also provide a downward skew of the N50 value.
-
-
-### Assembly statistics that are *MORE* useful
-
-We now move into the section containing more meaningful metrics for evaluating your transcriptome assembly.
-
-
-#### Representation of reads
-
-A high quality transcriptome assembly is expected to have strong representation of the reads input to the assembler.  By aligning the RNA-Seq reads back to the transcriptome assembly, we can quantify read representation. Use the Bowtie2 aligner to align the reads to the Trinity assembly, and in doing so, take notice of the read representation statistics reported by the bowtie2 aligner.
-
-First build a bowtie2 index for the Trinity assembly, required before running the alignment:
-
-    %  bowtie2-build trinity_out_dir/Trinity.fasta trinity_out_dir/Trinity.fasta
-
-
-Now, align the reads to the assembly:
-
-    %   bowtie2 --local --no-unal -x trinity_out_dir/Trinity.fasta \
-          -q -1 data/wt_SRR1582651_1.fastq -2 data/wt_SRR1582651_2.fastq \
-          | samtools view -Sb - | samtools sort -o - - > bowtie2.bam
-
-
-.
-
-    [bam_header_read] EOF marker is absent. The input is probably truncated.
-    [samopen] SAM header is present: 686 sequences.
-    10000 reads; of these:
-      10000 (100.00%) were paired; of these:
-        6922 (69.22%) aligned concordantly 0 times
-        2922 (29.22%) aligned concordantly exactly 1 time
-         156 (1.56%) aligned concordantly >1 times
-        ----
-        6922 pairs aligned concordantly 0 times; of these:
-          191 (2.76%) aligned discordantly 1 time
-        ----
-        6731 pairs aligned 0 times concordantly or discordantly; of these:
-          13462 mates make up the pairs; of these:
-          12476 (92.68%) aligned 0 times
-          752 (5.59%) aligned exactly 1 time
-          234 (1.74%) aligned >1 times
-    37.62% overall alignment rate
-
-Generally, in a high quality assembly, you would expect to see at least ~70% aligned and at least ~70% of the reads to exist as proper pairs. Our tiny read set used here in this workshop does not provide us with a high quality assembly, as only ~30% of aligned reads are mapped as proper pairs - which is usually the sign of a fractured assembly. In this case, deeper sequencing and assembly of more reads would be expected to lead to major improvements here.
-
-
-
-### Using IGV to examine read support for assembled transcripts
-
-Every assembled transcript is only as valid as the reads that support it.  If you ever want to examine the read support for one of your favorite transcripts, you could do this using the IGV browser.
-
-Let's examine the above bowtie2 alignments to our Trinity transcripts using IGV. Before viewing the bam file, we must first index it using samtools:
-
-    % samtools index bowtie2.bam
-
-Then, you can launch IGV on these data like so:
-
-    % igv.sh -g trinity_out_dir/Trinity.fasta bowtie2.bam
-
->Note, you could also launch IGV via clicking the icon on the desktop and then manually loading in the various input files via the menu, but that does take some time.  Launching it from the command line is rather straightforward and fast.
-
-Select different transcripts for viewing.  Since we only aligned one of our sets of reads, you may not find coverage across entire sequences.  We would need to align all the reads for a more comprehensive view.  We'll skip that for now.
-
-<img src="https://raw.githubusercontent.com/wiki/trinityrnaseq/KrumlovTrinityWorkshopJan2018/images/krumlov_IGV_bowtie.png" width=450 />
-
-
-Take some time to familiarize yourself with IGV. Look at a few transcripts and consider the read support. View the reads as pairs to examine the paired-read linkages. (hint: cntrl-click, 'view as pairs').
-
-
-#### Assess number of full-length coding transcripts
-
-Another very useful metric in evaluating your assembly is to assess the number of fully reconstructed coding transcripts.  This can be done by performing a BLASTX search of your assembled transcript sequences to a high quality database of protein sequences, such as provided by [SWISSPROT](http://www.uniprot.org/).  Searching a large protein database using BLASTX can take a while - longer than we want during this workshop, so instead, we'll search the mini-version of SWISSPROT that comes installed in our data/ directory:
-
-
-    % blastx -query trinity_out_dir/Trinity.fasta \
-             -db data/mini_sprot.pep -out blastx.outfmt6 \
-             -evalue 1e-20 -num_threads 2 -max_target_seqs 1 -outfmt 6
-
-
-The above blastx command will have generated an output file 'blastx.outfmt6', storing only the single best matching protein given the E-value threshold of 1e-20.
-
-Examine the formatting of the tab-delimited blast output file:
-
-    % head blastx.outfmt6 | column -t
-
-.
-
-    TRINITY_DN1_c0_g1_i1   YP010_YEAST  70.18  57   16  1  73   240   1    57   6e-24   83.2
-    TRINITY_DN10_c0_g1_i1  RL21A_YEAST  93.88  147  9   0  442  2     1    147  4e-100  283
-    TRINITY_DN11_c0_g1_i1  RS24B_YEAST  95.90  122  5   0  367  2     1    122  7e-69   202
-    TRINITY_DN14_c0_g1_i1  VATB_YEAST   96.49  57   2   0  3    173   430  486  2e-33   114
-    TRINITY_DN14_c0_g2_i1  VATB_YEAST   95.60  91   4   0  3    275   328  418  1e-56   179
-    TRINITY_DN15_c0_g1_i1  RS15_YEAST   80.39  51   9   1  18   170   1    50   9e-24   83.6
-    TRINITY_DN15_c0_g2_i1  RS15_YEAST   87.88  99   12  0  3    299   44   142  2e-61   182
-    TRINITY_DN16_c0_g1_i1  CISY1_YEAST  90.38  343  33  0  2    1030  136  478  0.0     640
-    TRINITY_DN16_c0_g2_i1  CISY1_YEAST  70.09  107  29  1  322  2     26   129  4e-46   151
-    TRINITY_DN18_c0_g1_i1  ALF_YEAST    88.14  59   7   0  2    178   268  326  6e-33   111
-
-
->Can you figure out which columns correspond to the Trinity transcript, it's matching database sequence, the percent identity, and the E-value for match significance?
-
-By running another script in the Trinity suite, we can compute the length representation of best matching SWISSPROT matches like so:
-
-    % $TRINITY_HOME/util/analyze_blastPlus_topHit_coverage.pl \
-           blastx.outfmt6 trinity_out_dir/Trinity.fasta \
-           data/mini_sprot.pep | column -t
-
-.
-
-    #hit_pct_cov_bin  count_in_bin  >bin_below
-    100     78      78
-    90      18      96
-    80      11      107
-    70      19      126
-    60      15      141
-    50      24      165
-    40      33      198
-    30      40      238
-    20      62      300
-    10      24      324
-
-The above table lists bins of percent length coverage of the best matching protein sequence along with counts of proteins found within that bin.  For example, 78 proteins are matched by more than 90% of their length up to 100% of their length.  There are 18 matched by more than 80% and up to 90% of their length.  The third column provides a running total, indicating that 96 transcripts match more than 80% of their length, and 107 transcripts match more than 70% of their length, etc.
-
-The count of full-length transcripts is going to be dependent on how good the assembly is in addition to the depth of sequencing, but should saturate at higher levels of sequencing.  Performing this full-length transcript analysis using assemblies at different read depths and plotting the number of full-length transcripts as a function of sequencing depth will give you an idea of whether or not you've sequenced deeply enough or you should consider doing more RNA-Seq to capture more transcripts and obtain a better (more complete) assembly.
-
-
-We'll explore some additional metrics that are useful in assessing the assembly quality below, but they require that we estimate expression values for our transcripts, so we'll tackle that first.
 
 
 ## Transcript expression quantitation using Salmon
@@ -471,102 +267,6 @@ We use the TMM-normalized expression matrix when plotting expression values in h
 >Note, similar count and expression files were generated at the 'gene' level as well, and these can be used similarly to the isoform matrices wherever you want to perform a gene-based analysis instead.  It's often useful to study the expression data at both the gene and isoform level, particularly in cases where differential transcript usage exists (isoform switching), where differences in expression may not be apparent at the gene level.
 
 
-### Another look at assembly quality statistics: ExN50
-
-Although we outline above several of the reasons for why the contig N50 statistic is not a useful metric of assembly quality, below we describe the use of an alternative statistic - the ExN50 value, which we assert is more useful in assessing the quality of the transcriptome assembly. The ExN50 indicates the N50 contig statistic (as earlier) but restricted to the top most highly expressed transcripts.  Compute it like so:
-
-    % $TRINITY_HOME/util/misc/contig_ExN50_statistic.pl Trinity.isoform.TMM.EXPR.matrix \
-            trinity_out_dir/Trinity.fasta > ExN50.stats
-
-
-View the contents of the above output file:
-
-    % cat ExN50.stats  | column -t
-
->Note, your results may vary slightly.
-
-.
-
-    E       ExN50   num_transcripts
-    1       329     1
-    2       329     2
-    3       247     3
-    4       247     4
-    5       329     5
-    6       329     7
-    7       329     9
-    8       327     11
-    9       303     13
-    10      327     15
-    11      329     17
-    ....
-    35      415     101
-    36      417     105
-    37      416     110
-    38      417     115
-    39      420     121
-    40      417     126
-    41      417     131
-    42      420     137
-    43      420     143
-    44      417     148
-    45      416     154
-    ....
-    69      330     326
-    70      329     334
-    71      329     343
-    72      328     352
-    73      325     361
-    74      328     371
-    75      325     380
-    76      320     389
-    77      320     399
-    78      320     409
-    79      320     419
-    ....
-    89      303     530
-    90      305     542
-    91      303     555
-    92      302     569
-    93      303     582
-    94      303     597
-    95      292     612
-    96      296     628
-    97      302     644
-    98      302     662
-    99      302     685
-    100     302     686
-
-
-The above table indicates the contig N50 value based on the entire transcriptome assembly (E100), which is a small value (302).  By restricting the N50 computation to the set of transcripts representing the top most 43% of expression data, we obtain an N50 value of 420.  (Note, good and sufficiently deep data generally peak at around E90; see below)
-
-
-Try plotting the ExN50 statistics:
-
-    % $TRINITY_HOME/util/misc/plot_ExN50_statistic.Rscript ExN50.stats
-    
-    % xpdf ExN50.stats.plot.pdf
-
-
-<img src="https://raw.githubusercontent.com/wiki/trinityrnaseq/KrumlovTrinityWorkshopJan2018/images/ExN50_stats.png" width=450 />
-
-
-As you can see, the N50 value will tend to peak at a value higher than that computed using the entire data set.  With a high quality transcriptome assembly, the N50 value should peak at ~90% of the expression data, which we refer to as the E90N50 value. Reporting the E90N50 contig length and the E90 transcript count are more meaningful than reporting statistics based on the entire set of assembled transcripts.  Remember the caveat in assembling this tiny data set.  A plot based on a larger set of reads looks like so:
-
-Assembly using 900K PE reads:
-<img src="https://raw.githubusercontent.com/wiki/trinityrnaseq/KrumlovTrinityWorkshopJan2018/images/0.9M_PE_ExN50.png" width=200 />
-
-Assembly using 4.5M PE reads:
-<img src="https://raw.githubusercontent.com/wiki/trinityrnaseq/KrumlovTrinityWorkshopJan2018/images/4.5M_PE_ExN50.png" width=200 />
-
-Assembly using 18M PE reads:
-<img src="https://raw.githubusercontent.com/wiki/trinityrnaseq/KrumlovTrinityWorkshopJan2018/images/18M_PE_ExN50.png" width=200 />
-
-
-You can see that as you sequence deeper, you'll end up with an assembly that has an ExN50 peak that approaches the use of ~90% of the expression data.
-
-
-
 ## Differential Expression Using DESeq2
 
 A plethora of tools are currently available for identifying differentially expressed transcripts based on RNA-Seq data, and of these, DESeq2 is among the most popular and most accurate.  The DESeq2 software is part of the R Bioconductor package, and we provide support for using it in the Trinity package. 
@@ -613,16 +313,11 @@ The files '*.DE_results' contain the output from running DESeq2 to identify diff
 
 These data include the log fold change (log2FoldChange), mean expression (baseMean), P- value from an exact test, and false discovery rate (padj).
 
-The DESeq2 analysis above generated both MA and Volcano plots based on these data. Examine any of these like so:
+The DESeq2 analysis above generated both MA and Volcano plots based on these data. Examine any of these, such as 'DESeq2_trans/Trinity.isoform.counts.matrix.GSNO_vs_wt.DESeq2.DE_results.MA_n_Volcano.pdf' from within your web browser.
 
-    %  xpdf DESeq2_trans/Trinity.isoform.counts.matrix.GSNO_vs_wt.DESeq2.DE_results.MA_n_Volcano.pdf
-
-<img src="https://raw.githubusercontent.com/wiki/trinityrnaseq/KrumlovTrinityWorkshopJan2018/images/volcano_plots.png" width=450 />
+<img src="images/volcano_plots.png" width=450 />
 
 The red data points correspond to all those features that were identified as being significant with an FDR <= 0.05.
-
-
->Exit the chart viewer to continue.
 
 
 Trinity facilitates analysis of these data, including scripts for extracting transcripts that are above some statistical significance (FDR threshold) and fold-change in expression, and generating figures such as heatmaps and other useful plots, as described below.
@@ -659,15 +354,11 @@ Note, the number of lines in this file includes the top line with column names, 
 
 Also included among these files is a heatmap 'diffExpr.P1e-3_C2.matrix.log2.centered.genes_vs_samples_heatmap.pdf' as shown below, with transcripts clustered along the vertical axis and samples clustered along the horizontal axis.
 
-     % xpdf diffExpr.P1e-3_C2.matrix.log2.centered.genes_vs_samples_heatmap.pdf
+View file 'diffExpr.P1e-3_C2.matrix.log2.centered.genes_vs_samples_heatmap.pdf' from within your web browser.
 
-<img src="https://raw.githubusercontent.com/wiki/trinityrnaseq/KrumlovTrinityWorkshopJan2018/images/DE_genes_heatmap.png" width=450 />
+<img src="images/DE_genes_heatmap.png" width=450 />
 
 The expression values are plotted in log2 space and mean-centered (mean expression value for each feature is subtracted from each of its expression values in that row), and shows upregulated expression as yellow and downregulated expression as purple. 
-
-
->Exit the PDF viewer to continue.
-
 
 ## Extract transcript clusters by expression profile by cutting the dendrogram
 
@@ -679,9 +370,9 @@ Extract clusters of transcripts with similar expression profiles by cutting the 
 This creates a directory containing the individual transcript clusters, including a pdf file that summarizes expression values for each cluster according to individual charts:
 
 
-     % xpdf diffExpr.P1e-3_C2.matrix.RData.clusters_fixed_P_60/my_cluster_plots.pdf
+View file 'diffExpr.P1e-3_C2.matrix.RData.clusters_fixed_P_60/my_cluster_plots.pdf' from your web browser.
 
-<img src="https://raw.githubusercontent.com/wiki/trinityrnaseq/KrumlovTrinityWorkshopJan2018/images/DE_clusters.png" width=450 />
+<img src="images/DE_clusters.png" width=450 />
 
 
 
@@ -700,7 +391,7 @@ Be sure you're in your base working directory:
 
 .
    
-    /home/genomics/workshop_materials/transcriptomics/KrumlovTrinityWorkshopJan2018
+    /home/ubuntu/trinity_and_trinotate
 
 
 Now, run the DE analysis at the gene level like so:
@@ -723,13 +414,13 @@ Let's move on and make use of those outputs later.  With your own data, however,
 
 Now we have a bunch of transcript sequences and have identified some subset of them that appear to be biologically interesting in that they're differentially expressed between our two conditions - but we don't really know what they are or what biological functions they might represent.  We can explore their potential functions by functionally annotating them using our Trinotate software and analysis protocol.  To learn more about Trinotate, you can visit the [Trinotate website](http://trinotate.github.io/).
 
-Again, let's make sure that we're back in our primary working directory called 'KrumlovTrinityWorkshopJan2018':
+Again, let's make sure that we're back in our primary working directory called 'trinity_and_trinotate':
 
     % pwd
 
 .
 
-    /home/genomics/workshop_materials/transcriptomics/KrumlovTrinityWorkshopJan2018
+    /home/ubuntu/trinity_and_trinotate
 
 If you're not in the above directory, then relocate yourself to it.
 
@@ -859,7 +550,7 @@ As a sanity check, be sure you're currently located in your 'Trinotate/' working
     % pwd
 .
 
-    /home/genomics/workshop_materials/transcriptomics/KrumlovTrinityWorkshopJan2018/Trinotate
+    /home/ubuntu/trinity_and_trinotate/Trinotate
 
 
 Copy the provided Trinotate.sqlite boilerplate database into your Trinotate working directory like so:
@@ -929,7 +620,8 @@ Once again, verify that you're currently in the Trinotate/ working directory:
 
 .
 
-    /home/genomics/workshop_materials/transcriptomics/KrumlovTrinityWorkshopJan2018/Trinotate
+    /home/ubuntu/trinity_and_trinotate/Trinotate
+    
 
 Now, load in the transcript expression data stored in the matrices we built earlier:
 
@@ -990,13 +682,13 @@ Now, visit the following URL in Google Chrome: <http://localhost:8686/cgi-bin/in
 
 You should see a web form like so:
 
-<img src="https://raw.githubusercontent.com/wiki/trinityrnaseq/KrumlovTrinityWorkshopJan2018/images/TrinotateWeb_entrypoint2017.png" width=450 />
+<img src="images/TrinotateWeb_entrypoint2017.png" width=450 />
 
-In the text box, put the path to your Trinotate.sqlite database, as shown above ("/home/genomics/workshop_materials/transcriptomics/KrumlovTrinityWorkshopJan2018/Trinotate/Trinotate.sqlite").  Click 'Submit'.
+In the text box, put the path to your Trinotate.sqlite database, as shown above ("/home/ubuntu/trinity_and_trinotate/Trinotate/Trinotate.sqlite").  Click 'Submit'.
 
 You should now have TrinotateWeb running and serving the content in your Trinotate database:
 
-<img src="https://raw.githubusercontent.com/wiki/trinityrnaseq/KrumlovTrinityWorkshopJan2018/images/TrinotateWeb_homepage.png" width=450 />
+<img src="images/TrinotateWeb_homepage.png" width=450 />
 
 Take some time to click the various tabs and explore what's available.
 

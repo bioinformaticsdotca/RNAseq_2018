@@ -23,6 +23,23 @@ where we have a 'minigenome.fa' genome fasta file and corresponding 'minigenome.
 >How many reads are there?
 
 
+## Setting up your environment
+
+For convenience, we'll be making use of certain environmental variables, such as $TRINITY_HOME to define where the Trinity software is installed.
+
+To configure your environment, simply run the following command:
+
+    %  source ~/CourseData/RNA_data/trinity_trinotate_tutorial_2018/environment.txt
+
+Now, if you type
+
+    %  env | grep TRINITY
+
+you should see:
+
+    TRINITY_HOME=/usr/local/trinityrnaseq-Trinity-v2.6.5/
+
+
 ## Setting up your workspace
 
 In your home directory, create a new workspace called 'workspace_GG' (with the 'GG' short for genome-guided).
@@ -224,4 +241,16 @@ Next, try assembling the reads directly, without using the genome sequence:
            --seqType fq --CPU 2 --max_memory 1G \
 	   --output trinity_out_dir
 
+
+You'll find the Trinity assembly output file as:
+
+    trinity_out_dir/Trinity.fasta
+
+>How many transcripts did Trinity reconstruct?
+
+Exploring transcript structures can be more challenging when you do not have a genome sequence to serve as a reference for orienting transcripts and defining intron/exon structures or comparing structures of alternatively spliced variants.
+
+There is a tool called [Bandage](https://rrwick.github.io/Bandage/) that allows you to explore your transcriptome assembly, and the various structures that may result from alternative splicing.
+
+Try downloading/installing Bandage, importing your Trinity de novo assembly, and exploring the data.  Do you find evidence of alternative splicing within your assembly?
 
