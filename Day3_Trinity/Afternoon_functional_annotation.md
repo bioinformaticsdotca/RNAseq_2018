@@ -556,6 +556,8 @@ As a sanity check, be sure you're currently located in your 'Trinotate/' working
 Copy the provided Trinotate.sqlite boilerplate database into your Trinotate working directory like so:
 
      %  cp ../data/trinotate_data/Trinotate.boilerplate.sqlite  Trinotate.sqlite
+     
+     %  chmod 644 Trinotate.sqlite  # make it writeable
 
 
 
