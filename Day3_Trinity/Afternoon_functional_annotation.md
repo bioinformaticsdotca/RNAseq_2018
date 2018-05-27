@@ -677,10 +677,10 @@ At this point, the Trinotate database should be fully populated and ready to be 
 
 TrinotateWeb is web-based software and runs locally on the same hardware we've been running all our computes (as opposed to your typical websites that you visit regularly, such as facebook).  Launch the mini webserver that drives the TrinotateWeb software like so:
 
-    % $TRINOTATE_HOME/run_TrinotateWebserver.pl 8686
+    % $TRINOTATE_HOME/run_TrinotateWebserver.pl 8080
 
 
-Now, visit the following URL in Google Chrome: <http://localhost:8686/cgi-bin/index.cgi>
+Now, visit the following URL in Google Chrome: <http://localhost:8080/cgi-bin/index.cgi>
 
 You should see a web form like so:
 
