@@ -19,6 +19,13 @@ We are using Google Classroom for discussion. Join the Class at https://classroo
 The full course notes are available as a [single PDF](https://drive.google.com/open?id=1s3N9zS_nQx3nGTyeWCjDdpFY_bEBTZry).  
 
 ***
+
+# Class Photo
+ 
+<img src="https://github.com/bioinformaticsdotca/RNAseq_2018/blob/master/CBW-May-28.jpg?raw=true" alt="Class Photo" width="750" />
+
+***
+
 # Day 1 <a id="day1"></a>
 
 **Day 1 and Day 2 refer to content in the [RNA-Seq wiki](https://github.com/griffithlab/rnaseq_tutorial/wiki).**
