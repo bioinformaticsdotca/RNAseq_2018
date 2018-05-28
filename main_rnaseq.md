@@ -77,8 +77,6 @@ The full course notes are available as a [single PDF](https://drive.google.com/o
 
 *<font color="827e9c">Hamza Farooq</font>*
 
-Paper: [Recurrent chimeric RNAs enriched in human prostate cancer identified by deep sequencing](http://www.ncbi.nlm.nih.gov/pubmed/21571633)
-
 [Assignment Questions](https://github.com/griffithlab/rnaseq_tutorial/wiki/Integrated-Assignment)
 
 [Assignment Answers](https://github.com/griffithlab/rnaseq_tutorial/wiki/Integrated-Assignment-Answers)  
