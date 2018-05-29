@@ -86,12 +86,6 @@ The full course notes are available as a [single PDF](https://drive.google.com/o
 
 # Day 2 <a id="day2"></a>
 
-## Module 3: Expression and Differential Expression
-
-*<font color="#827e9c">Obi Griffith</font>* 
-
-[Lecture](https://drive.google.com/open?id=1mIzbj7DkMcP8nNskdq4PllkFucZdtWv1)
-
 ## Module 2: RNA-seq Alignment and Visualization Lab Practical
 
 *<font color="#827e9c">Fouad Yousif</font>* 
@@ -106,7 +100,15 @@ The full course notes are available as a [single PDF](https://drive.google.com/o
 
   [Alignment Visualization](https://github.com/griffithlab/rnaseq_tutorial/wiki/PostAlignment-Visualization)
   
-  [Alignment QC](https://github.com/griffithlab/rnaseq_tutorial/wiki/PostAlignment-QC)
+  [Alignment QC](https://github.com/griffithlab/rnaseq_tutorial/wiki/PostAlignment-QC)  
+  
+[IGV Tutorial](https://drive.google.com/a/bioinformatics.ca/file/d/1zJpC4UyffVdVdC6P0j0LEypGqYrnmk3c/view?usp=sharing)  
+
+## Module 3: Expression and Differential Expression
+
+*<font color="#827e9c">Obi Griffith</font>* 
+
+[Lecture](https://drive.google.com/open?id=1mIzbj7DkMcP8nNskdq4PllkFucZdtWv1)
  
 ## Module 3: Expression and Differential Expression Lab Practical
 
