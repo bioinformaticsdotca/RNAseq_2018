@@ -1,4 +1,13 @@
-<<<<<<< HEAD
+---
+layout: tutorial_page
+permalink: /rnaseq_2018_tutorial5
+title: RNA-Seq
+header1: Workshop Pages for Students
+header2: Informatics for RNA-Seq Analysis
+image: /site_images/CBW_RNA_seq_icon.jpg
+home: https://bioinformaticsdotca.github.io/rnaseq_2018
+---
+
 # Intro to Genome-guided RNA-Seq Assembly
 
 To make use of a genome sequence as a reference for reconstructing transcripts, we'll use the Tuxedo2 suite of tools, including Hisat2 for genome-read mappings and StringTie for transcript isoform reconstruction based on the read alignments.  We'll also explore using Trinity in genome-guided mode, performing a de novo assembly for reads aligned and clustered along the reference genome.
@@ -1089,5 +1098,5 @@ You'll now notice that the edgeR_gene/ directory exists and is populated with si
 
 Let's move on and make use of those outputs later.  With your own data, however, you would normally run the same set of operations as you did above for the transcript-level DE analyses.
 
->>>>>>> 5b980c773897278a30c5409246275aea8a5fae4d
+
 
