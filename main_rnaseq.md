@@ -165,4 +165,9 @@ For additional resources, tutorials, future directions, and more please refer to
 
 Additional resources can be found on the [RNA-Seq wiki](https://github.com/griffithlab/rnaseq_tutorial/wiki/Resources).
 
+***
+
+Thank you for attending the Informatics for RNA-Seq Analysis workshop! Help us make this workshop better by filling out [our survey](https://docs.google.com/forms/d/e/1FAIpQLSdoDrzwTZvKSuJ51TO2xqWHAgQeKns7l5TtzAuZptBjHGzZAA/viewform?usp=sf_link)
+
+***
   
