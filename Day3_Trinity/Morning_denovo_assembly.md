@@ -254,3 +254,9 @@ There is a tool called [Bandage](https://rrwick.github.io/Bandage/) that allows 
 
 Try downloading/installing Bandage, importing your Trinity de novo assembly, and exploring the data.  Do you find evidence of alternative splicing within your assembly?
 
+Below is a view of a Trinity assembly from within Bandage.  
+
+<img src="images/Bandage_Trinity-GG.png" />
+
+Do you find evidence for alternative splicing?
+
