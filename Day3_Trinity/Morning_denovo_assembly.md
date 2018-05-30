@@ -148,7 +148,7 @@ Examine the contents of the bam file using 'samtools':
 
 >Use the <https://broadinstitute.github.io/picard/explain-flags.html> utility to decipher the different flag values
 
-<img src="images/DecodingSamFlags.png">
+<img src="https://github.com/bioinformaticsdotca/RNAseq_2018/blob/master/Day3_Trinity/images/DecodingSamFlags.png?raw=true" alt="Decoding Sam Flags" width="750" />
 
 
 
@@ -266,7 +266,8 @@ Try downloading/installing Bandage, importing your Trinity de novo assembly, and
 
 Below is a view of a Trinity assembly from within Bandage.  
 
-<img src="images/Bandage_Trinity-GG.png" />
+<img src="https://github.com/bioinformaticsdotca/RNAseq_2018/blob/master/Day3_Trinity/images/Bandage_Trinity-GG.png?raw=true" alt="Bandage_Trinity-GG" width="750" />
+
 
 Do you find evidence for alternative splicing?
 
