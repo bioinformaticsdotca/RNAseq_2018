@@ -419,40 +419,19 @@ You'll now notice that the DESeq2_gene/ directory exists and is populated with s
 
 Let's move on and make use of those outputs later.  With your own data, however, you would normally run the same set of operations as you did above for the transcript-level DE analyses.
 
-
-## Functional Annotation of Assembled Transcripts Using Trinotate
-
-Now we have a bunch of transcript sequences and have identified some subset of them that appear to be biologically interesting in that they're differentially expressed between our two conditions - but we don't really know what they are or what biological functions they might represent.  We can explore their potential functions by functionally annotating them using our Trinotate software and analysis protocol.  To learn more about Trinotate, you can visit the [Trinotate website](http://trinotate.github.io/).
-
-Again, let's make sure that we're back in our primary working directory called 'trinity_and_trinotate':
-=======
----
-layout: tutorial_page
-permalink: /rnaseq_2018_tutorial6
-title: RNA-Seq
-header1: Workshop Pages for Students
-header2: Informatics for RNA-Seq Analysis
-image: /site_images/CBW_RNA_seq_icon.jpg
-home: https://bioinformaticsdotca.github.io/rnaseq_2018
----
-
-
 # Functional Annotation of Assembled Transcripts Using Trinotate
 
 Now we have a bunch of transcript sequences and have identified some subset of them that appear to be biologically interesting in that they're differentially expressed between our two conditions - but we don't really know what they are or what biological functions they might represent.  We can explore their potential functions by functionally annotating them using our Trinotate software and analysis protocol.  To learn more about Trinotate, you can visit the [Trinotate website](http://trinotate.github.io/).
 
 Again, let's make sure that we're back in our primary working directory called 'trinity_workspace':
->>>>>>> 5b980c773897278a30c5409246275aea8a5fae4d
+
 
     % pwd
 
 .
 
-<<<<<<< HEAD
     /home/ubuntu/workspace/trinity_and_trinotate
-=======
-    /home/ubuntu/workspace/trinity_workspace
->>>>>>> 5b980c773897278a30c5409246275aea8a5fae4d
+
 
 If you're not in the above directory, then relocate yourself to it.
 
@@ -473,11 +452,8 @@ Below, we're going to run a number of different tools to capture information abo
 
 Running TransDecoder is a two-step process.  First run the TransDecoder step that identifies all long ORFs.
 
-<<<<<<< HEAD
-    % $TRANSDECODER_HOME/TransDecoder.LongOrfs -t ../trinity_out_dir/Trinity.fasta
-=======
      % $TRANSDECODER_HOME/TransDecoder.LongOrfs -t ../trinity_out_dir/Trinity.fasta
->>>>>>> 5b980c773897278a30c5409246275aea8a5fae4d
+
 
 Now, run the step that predicts which ORFs are likely to be coding.
 
@@ -494,10 +470,6 @@ You'll now find a number of output files containing 'transdecoder' in their name
     Trinity.fasta.transdecoder.gff3
     Trinity.fasta.transdecoder.pep
     Trinity.fasta.transdecoder_dir/
-<<<<<<< HEAD
-    ...
-=======
->>>>>>> 5b980c773897278a30c5409246275aea8a5fae4d
 
 
 The file we care about the most here is the 'Trinity.fasta.transdecoder.pep' file, which contains the protein sequences corresponding to the predicted coding regions within the transcripts.
@@ -508,19 +480,6 @@ Go ahead and take a look at this file:
 
 .
 
-<<<<<<< HEAD
-    >TRINITY_DN107_c0_g1_i1.p1 TRINITY_DN107_c0_g1~~TRINITY_DN107_c0_g1_i1.p1  ORF type:internal len:175 (+),score=164.12 TRINITY_DN107_c0_g1_i1:2-523(+)
-    VPLYQHLADLSDSKTSPFVLPVPFLNVLNGGSHAGGALALQEFMIAPTGAKSFREAMRIG
-    SEVYHNLKSLTKKRYGSSAGNVGDEGGVAPDIQTAEEALDLIVDAIKAAGHEGKVKIGLD
-    CASSEFFKDGKYDLDFKNPNSDASKWLSGPQLADLYHSLVKKYPIVSIEDPFAE
-    >TRINITY_DN10_c0_g1_i1.p2 TRINITY_DN10_c0_g1~~TRINITY_DN10_c0_g1_i1.p2  ORF type:internal len:158 (-),score=122.60 TRINITY_DN10_c0_g1_i1:2-472(-)
-    TDQDKRYQAKMGKSHGYRSRTRYMFQRDFRKHGAIALSTYLKVYKVGDIVDIKANGSIQK
-    GMPHKFYQGKTGVVYNVTKSSVGVIVNKMVGNRYLEKRLNLRVEHVKHSKCRQEFLDRVK
-    SNAAKRAEAKAQGKAVQLKRQPAQPREARVVSTEGNV
-    >TRINITY_DN110_c0_g1_i1.p2 TRINITY_DN110_c0_g1~~TRINITY_DN110_c0_g1_i1.p2  ORF type:complete len:131 (+),score=98.69 TRINITY_DN110_c0_g1_i1:55-447(+)
-    MTRSSVLADALNAINNAEKTGKRQVLIRPSSKVIIKFLQVMQRHGYIGEFEYIDDHRSGK
-
-=======
     >TRINITY_DN102_c0_g1_i1|m.9 TRINITY_DN102_c0_g1_i1|g.9  ORF TRINITY_DN102_c0_g1_i1|g.9 \
         TRINITY_DN102_c0_g1_i1|m.9 type:complete len:185 (+) TRINITY_DN102_c0_g1_i1:23-577(+)
     MARYGATSTNPAKSASARGSYLRVSFKNTRETAQAINGWELTKAQKYLDQVLEHQRAIPF
@@ -541,7 +500,6 @@ Go ahead and take a look at this file:
     MSDSVTIRTRKVITNPLLARKQFVVDVLHPNRANVSKDELREKLAEAYKAEKDAVSVFGF
     RTQFGGGKSTGFGLVYNSVADAKKFEPTYRLVRYGLAEKVEKASRQQRKQKKNRDKKIFG
     TG
->>>>>>> 5b980c773897278a30c5409246275aea8a5fae4d
 
 >Type 'q' to exit the 'less' viewer.
 
@@ -572,11 +530,9 @@ Now, let's look for sequence homologies by just searching our predicted protein 
 Using our predicted protein sequences, let's also run a HMMER search against the Pfam database, and identify conserved domains that might be indicative or suggestive of function:
 
     % hmmscan --cpu 2 --domtblout TrinotatePFAM.out \
-<<<<<<< HEAD
-              ../data/trinotate_data/Pfam-A.hmm \
-=======
+
               ~/CourseData/RNA_data/trinity_trinotate_tutorial/trinotate_data/Pfam-A.hmm \
->>>>>>> 5b980c773897278a30c5409246275aea8a5fae4d
+
               Trinity.fasta.transdecoder.pep
 
 >Note, hmmscan might take a few minutes to run.
@@ -585,12 +541,7 @@ Using our predicted protein sequences, let's also run a HMMER search against the
 
 The signalP and tmhmm software tools are very useful for predicting signal peptides (secretion signals) and transmembrane domains, respectively.
 
-<<<<<<< HEAD
-=======
-#### Signal peptide prediction
 
-
->>>>>>> 5b980c773897278a30c5409246275aea8a5fae4d
 To predict signal peptides, run signalP like so:
 
     % signalp -f short -n signalp.out Trinity.fasta.transdecoder.pep
@@ -610,8 +561,7 @@ Take a look at the output file:
 
 >How many of your proteins are predicted to encode signal peptides?
 
-<<<<<<< HEAD
-=======
+
 #### Transmembrane domain prediction
 
 Run TMHMM to predict transmembrane regions like so:
@@ -630,7 +580,6 @@ and examine the output:
     TRINITY_DN284_c0_g2::TRINITY_DN284_c0_g2_i1::g.214::m.214       len=144 ExpAA=0.06      First60=0.04    PredHel=0       Topology=i
     TRINITY_DN285_c0_g1::TRINITY_DN285_c0_g1_i1::g.176::m.176       len=100 ExpAA=0.01      First60=0.01    PredHel=0       Topology=o
 
->>>>>>> 5b980c773897278a30c5409246275aea8a5fae4d
 
 ## Preparing and Generating a Trinotate Annotation Report
 
@@ -643,22 +592,16 @@ As a sanity check, be sure you're currently located in your 'Trinotate/' working
     % pwd
 .
 
-<<<<<<< HEAD
-    /home/ubuntu/workspace/trinity_and_trinotate/Trinotate
-=======
+
     /home/ubuntu/workspace/trinity_workspace/Trinotate
->>>>>>> 5b980c773897278a30c5409246275aea8a5fae4d
+
 
 
 Copy the provided Trinotate.sqlite boilerplate database into your Trinotate working directory like so:
 
-<<<<<<< HEAD
-     %  cp ../data/trinotate_data/Trinotate.boilerplate.sqlite  Trinotate.sqlite
-     
-     %  chmod 644 Trinotate.sqlite  # make it writeable
-=======
+
      %  cp ~/CourseData/RNA_data/trinity_trinotate_tutorial/trinotate_data/Trinotate.boilerplate.sqlite  Trinotate.sqlite
->>>>>>> 5b980c773897278a30c5409246275aea8a5fae4d
+
 
 
 
@@ -681,12 +624,10 @@ Load in the various outputs generated earlier:
 
     %  $TRINOTATE_HOME/Trinotate Trinotate.sqlite LOAD_signalp signalp.out
 
-<<<<<<< HEAD
-=======
+
     % $TRINOTATE_HOME/Trinotate Trinotate.sqlite LOAD_tmhmm tmhmm.out
 
 
->>>>>>> 5b980c773897278a30c5409246275aea8a5fae4d
 ### Generate the Trinotate Annotation Report
 
     % $TRINOTATE_HOME/Trinotate Trinotate.sqlite report > Trinotate.xls
@@ -729,42 +670,30 @@ Once again, verify that you're currently in the Trinotate/ working directory:
 
 .
 
-<<<<<<< HEAD
-    /home/ubuntu/workspace/trinity_and_trinotate/Trinotate
-    
-=======
+
     /home/ubuntu/workspace/trinity_workspace/Trinotate
->>>>>>> 5b980c773897278a30c5409246275aea8a5fae4d
+
 
 Now, load in the transcript expression data stored in the matrices we built earlier:
 
     %  $TRINOTATE_HOME/util/transcript_expression/import_expression_and_DE_results.pl \
             --sqlite Trinotate.sqlite \
             --transcript_mode \
-<<<<<<< HEAD
-            --samples_file ../data/samples.txt \
-            --count_matrix ../Trinity.isoform.counts.matrix \
-            --fpkm_matrix ../Trinity.isoform.TMM.EXPR.matrix
 
-Import the DE results from our DESeq2_trans/ directory:
-=======
             --samples_file ../samples.txt \
             --count_matrix ../Trinity_trans.counts.matrix \
             --fpkm_matrix ../Trinity_trans.TMM.EXPR.matrix
 
 Import the DE results from our edgeR_trans/ directory:
->>>>>>> 5b980c773897278a30c5409246275aea8a5fae4d
+
 
     %  $TRINOTATE_HOME/util/transcript_expression/import_expression_and_DE_results.pl \
            --sqlite Trinotate.sqlite \
            --transcript_mode \
-<<<<<<< HEAD
-           --samples_file ../data/samples.txt \
-           --DE_dir ../DESeq2_trans
-=======
+
            --samples_file ../samples.txt \
            --DE_dir ../edgeR_trans
->>>>>>> 5b980c773897278a30c5409246275aea8a5fae4d
+
 
 and Import the clusters of transcripts we extracted earlier based on having similar expression profiles across samples:
 
@@ -772,11 +701,9 @@ and Import the clusters of transcripts we extracted earlier based on having simi
            --sqlite Trinotate.sqlite \
            --group_name DE_all_vs_all \
            --analysis_name diffExpr.P1e-3_C2_clusters_fixed_P_60 \
-<<<<<<< HEAD
-            ../DESeq2_trans/diffExpr.P1e-3_C2.matrix.RData.clusters_fixed_P_60/*matrix
-=======
+
             ../edgeR_trans/diffExpr.P1e-3_C2.matrix.RData.clusters_fixed_P_60/*matrix
->>>>>>> 5b980c773897278a30c5409246275aea8a5fae4d
+
 
 
 
@@ -785,27 +712,20 @@ And now we'll do the same for our gene-level expression and DE results:
     %  $TRINOTATE_HOME/util/transcript_expression/import_expression_and_DE_results.pl \
             --sqlite Trinotate.sqlite \
             --gene_mode \
-<<<<<<< HEAD
-            --samples_file ../data/samples.txt \
-            --count_matrix ../Trinity.gene.counts.matrix \
-            --fpkm_matrix ../Trinity.gene.TMM.EXPR.matrix
-=======
+
             --samples_file ../samples.txt \
             --count_matrix ../Trinity_genes.counts.matrix \
             --fpkm_matrix ../Trinity_genes.TMM.EXPR.matrix
->>>>>>> 5b980c773897278a30c5409246275aea8a5fae4d
+
 
 
     %  $TRINOTATE_HOME/util/transcript_expression/import_expression_and_DE_results.pl \
            --sqlite Trinotate.sqlite \
            --gene_mode \
-<<<<<<< HEAD
-           --samples_file ../data/samples.txt \
-           --DE_dir ../DESeq2_gene
-=======
+
            --samples_file ../samples.txt \
            --DE_dir ../edgeR_gene
->>>>>>> 5b980c773897278a30c5409246275aea8a5fae4d
+
 
 >Note, in the above gene-loading commands, the term 'component' is used. 'Component' is just another word for 'gene' in the realm of Trinity.
 
@@ -816,27 +736,20 @@ At this point, the Trinotate database should be fully populated and ready to be 
 
 TrinotateWeb is web-based software and runs locally on the same hardware we've been running all our computes (as opposed to your typical websites that you visit regularly, such as facebook).  Launch the mini webserver that drives the TrinotateWeb software like so:
 
-<<<<<<< HEAD
-    % $TRINOTATE_HOME/run_TrinotateWebserver.pl 8080
 
-
-Now, visit the following URL in Google Chrome: <http://localhost:8080/cgi-bin/index.cgi>
-=======
     % $TRINOTATE_HOME/run_TrinotateWebserver.pl 3000
 
 
 Now, visit the following URL in Google Chrome: <http://${YOUR_IP_ADDRESS}:3000/cgi-bin/index.cgi>
->>>>>>> 5b980c773897278a30c5409246275aea8a5fae4d
+
 
 You should see a web form like so:
 
 <img src="images/TrinotateWeb_entrypoint2017.png" width=450 />
 
-<<<<<<< HEAD
-In the text box, put the path to your Trinotate.sqlite database, as shown above ("/home/ubuntu/workspace/trinity_and_trinotate/Trinotate/Trinotate.sqlite").  Click 'Submit'.
-=======
+
 In the text box, put the path to your Trinotate.sqlite database, as shown above ("/home/ubuntu/workspace/trinity_workspace/Trinotate/Trinotate.sqlite").  Click 'Submit'.
->>>>>>> 5b980c773897278a30c5409246275aea8a5fae4d
+
 
 You should now have TrinotateWeb running and serving the content in your Trinotate database:
 
