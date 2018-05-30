@@ -10,84 +10,159 @@ image: /site_images/CBW_RNA_seq_icon.jpg
 
 Welcome to Informatics for RNA-Seq Analysis 2018.  
 
-## Read these before coming to the workshop:
+The course schedule can be found [here](https://bioinformaticsdotca.github.io/rnaseq_2018_schedule).
 
-* [Informatics for RNA Sequencing: A Web Resource for Analysis on the Cloud](https://www.ncbi.nlm.nih.gov/pubmed/26248053)  
+Pre-readings, pre-work, and laptop setup instructions can be found [here](https://bioinformaticsdotca.github.io/rnaseq_pre_work_2018).  
 
-* [Integrative Genomics Viewer (IGV): high-performance genomics data visualization and exploration](http://www.ncbi.nlm.nih.gov/pubmed/22517427)
+We are using Google Classroom for discussion. Join the Class at https://classroom.google.com, select the "+" symbol in the upper right corner, click on "Join Class" and enter the class code provided to you.
 
-* [Transcript-level expression analysis of RNA-seq experiments with HISAT, StringTie and Ballgown](https://www.ncbi.nlm.nih.gov/pubmed/27560171)
+The full course notes are available as a [single PDF](https://drive.google.com/open?id=1s3N9zS_nQx3nGTyeWCjDdpFY_bEBTZry).  
+
+***
+
+# Class Photo
+ 
+<img src="https://github.com/bioinformaticsdotca/RNAseq_2018/blob/master/CBW-May-28.jpg?raw=true" alt="Class Photo" width="750" />
+
+***
+
+# Day 1 <a id="day1"></a>
+
+**Day 1 and Day 2 refer to content in the [RNA-Seq wiki](https://github.com/griffithlab/rnaseq_tutorial/wiki).**
+
+##  Welcome 
+
+  *<font color="#827e9c">Ann Meyer</font>* 
+
+## Introduction to Cloud Computing
+
+*<font color="#827e9c">Obi Griffith</font>* 
+
+[Lecture](https://drive.google.com/open?id=16iGwgvG2qBe2uWG6EmE63MDUF9wmWCx4)
+
+* We have set up 30 instances on the Amazon cloud - one for each student. In order to log in to your instance, you will need a security certificate. If you plan on using Linux or Mac OS X, please download [this certificate](http://main.oicrcbw.ca/private/CBWNY.pem). Otherwise if you plan on using Windows (with Putty and Winscp), please download [this certificate](http://main.oicrcbw.ca/private/CBWNY.ppk).
+
+* Detail instructions can be found [here](https://bioinformaticsdotca.github.io/AWS_setup).
+
+## Module 1: Introduction to RNA Sequencing Analysis
+
+*<font color="#827e9c">Malachi Griffith</font>* 
+
+[Lecture](https://drive.google.com/open?id=1iS1gJkQfmfjbtUtm0xPa0Un1Kc6zdUH_)   
+
+### Lab Practical
+
+[Lab practical](https://drive.google.com/open?id=1XoMA39kL4tRS0T2I8Wu6odbzLoFgwAYd)
+
+  [Installation](https://github.com/griffithlab/rnaseq_tutorial/wiki/Installation)
   
-* [ENCODE RNA-Seq Standards](https://genome.ucsc.edu/ENCODE/protocols/dataStandards/ENCODE_RNAseq_Standards_V1.0.pdf)
+  [Reference Genomes](https://github.com/griffithlab/rnaseq_tutorial/wiki/Reference-Genome)
   
-* [Methods to study splicing from high-throughput RNA sequencing data](http://www.ncbi.nlm.nih.gov/pubmed/24549677)  
+  [Annotations](https://github.com/griffithlab/rnaseq_tutorial/wiki/Annotation)
   
-* [A comprehensive assessment of RNA-seq accuracy, reproducibility and information content by the Sequencing Quality Control Consortium](http://www.ncbi.nlm.nih.gov/pubmed/25150838)
+  [Indexing](https://github.com/griffithlab/rnaseq_tutorial/wiki/Indexing)
+  
+  [Data](https://github.com/griffithlab/rnaseq_tutorial/wiki/RNAseq-Data)
+  
+  [Data QC](https://github.com/griffithlab/rnaseq_tutorial/wiki/PreAlignment-QC)
 
-* [De novo transcript sequence reconstruction from RNA-seq using the Trinity platform for reference generation and analysis](http://www.nature.com/nprot/journal/v8/n8/full/nprot.2013.084.html)
 
-## Optional readings:
+## Module 2: RNA-seq Alignment and Visualization
 
-* [HISAT: a fast spliced aligner with low memory requirements](https://www.ncbi.nlm.nih.gov/pubmed/25751142)  
+*<font color="#827e9c">Fouad Yousif</font>* 
 
-* [StringTie enables improved reconstruction of a transcriptome from RNA-seq reads](https://www.ncbi.nlm.nih.gov/pubmed/25690850)  
+[Lecture](https://drive.google.com/open?id=1qCsjyOGSVVRt5pO4h6rCLkO3vrDxlu0M)
 
-* [Ballgown bridges the gap between transcriptome assembly and expression analysis](https://www.ncbi.nlm.nih.gov/pubmed/25748911)  
+## Integrated Assignment
 
-* [HTSeq--a Python framework to work with high-throughput sequencing data](https://www.ncbi.nlm.nih.gov/pubmed/25260700)  
+*<font color="827e9c">Hamza Farooq</font>*
 
-* [edgeR: a Bioconductor package for differential expression analysis of digital gene expression data](https://www.ncbi.nlm.nih.gov/pubmed/19910308)  
+[Assignment Questions](https://github.com/griffithlab/rnaseq_tutorial/wiki/Integrated-Assignment)
 
-* [Full-length transcriptome assembly from RNA-Seq data without a reference genome](http://www.nature.com/nbt/journal/v29/n7/abs/nbt.1883.html)  
+[Assignment Answers](https://github.com/griffithlab/rnaseq_tutorial/wiki/Integrated-Assignment-Answers)  
 
-## Do these before coming to the workshop:
 
-1) **R Preparation tutorials**: You are expected to be familiar with **R** before the workshop. If you are unfamiliar with **R**, here are some suggested tutorials:  
+***
 
-* The [CBW R tutorial](http://bioinformatics-ca.github.io/CBW_R_Tutorial/) or [R Tutorial](http://www.cyclismo.org/tutorial/R/) 
-* The [R command cheat sheet](https://github.com/bioinformaticsdotca/bioinformaticsdotca.github.io/blob/master/resources/R_Short-refcard.pdf)
-* [R Plotting Reference](https://github.com/bioinformatics-ca/bioinformatics-ca.github.io/blob/master/resources/Plotting.Reference.ipynb)
+# Day 2 <a id="day2"></a>
 
-2) **UNIX Preparation tutorials**: You are expected to be familiar with basic command line usage before the workshop. If you are unfamiliar with **the command line**, here are some suggested tutorials:   
+## Module 2: RNA-seq Alignment and Visualization Lab Practical
 
-* [UNIX Bootcamp](https://github.com/griffithlab/rnaseq_tutorial/wiki/Unix-Bootcamp)
-* [UNIX Bootcamp alternative](http://rik.smith-unna.com/command_line_bootcamp/?id=9xnbkx6eaof) 
-* [Unix Cheat sheet](http://www.rain.org/~mkummel/unix.html) 
+*<font color="#827e9c">Fouad Yousif</font>* 
 
-3) [Sequencing Terminology](http://www.ncbi.nlm.nih.gov/projects/genome/glossary.shtml)
+[Lab Practical](https://drive.google.com/open?id=1CgEtVNY-B3-p0j-4CjGNvU0iwFetZlgE)
 
-## Install these before coming to the workshop:
+  [Adapter Trim](https://github.com/griffithlab/rnaseq_tutorial/wiki/Adapter-Trim)
+  
+  [Alignment](https://github.com/griffithlab/rnaseq_tutorial/wiki/Alignment)
+  
+  [IGV](https://github.com/griffithlab/rnaseq_tutorial/wiki/IGV-Tutorial)
 
-1) A robust text editor.   
+  [Alignment Visualization](https://github.com/griffithlab/rnaseq_tutorial/wiki/PostAlignment-Visualization)
+  
+  [Alignment QC](https://github.com/griffithlab/rnaseq_tutorial/wiki/PostAlignment-QC)  
+  
+[IGV Tutorial](https://drive.google.com/a/bioinformatics.ca/file/d/1zJpC4UyffVdVdC6P0j0LEypGqYrnmk3c/view?usp=sharing)  
 
-* For Windows/PC - [notepad++](http://notepad-plus-plus.org/)  
-* For Linux - [gEdit](http://projects.gnome.org/gedit/)  
-* For Mac – [TextWrangler](http://www.barebones.com/products/textwrangler/download.html)
+## Module 3: Expression and Differential Expression
 
-2) A file decompression tool.  
+*<font color="#827e9c">Obi Griffith</font>* 
 
-* For Windows/PC – [7zip](http://www.7-zip.org/).  
-* For Linux – [gzip](http://www.gzip.org).   
-* For Mac – already there.
+[Lecture](https://drive.google.com/open?id=1mIzbj7DkMcP8nNskdq4PllkFucZdtWv1)
+ 
+## Module 3: Expression and Differential Expression Lab Practical
 
-3) A robust internet browser such as Firefox or Safari (Internet Explorer and Chrome are not recommended because of Java issues).
+[Lab Practical](https://drive.google.com/open?id=1ntdvisFFxq1k449Sr-znuG8o2Y3bsAiY)
 
-4) Java -The visualization program that we will be using (IGV) requires Java. Check if you have Java installed: https://www.java.com/verify/ and download Java if you do not have it installed (Java 8).
+ [Expression](https://github.com/griffithlab/rnaseq_tutorial/wiki/Expression)
+ 
+ [Differential Expression](https://github.com/griffithlab/rnaseq_tutorial/wiki/Differential-Expression)
+ 
+ [DE Visualization](https://github.com/griffithlab/rnaseq_tutorial/wiki/DE-Visualization)
 
-5) Integrative Genomics Viewer 2.4 (IGV) - Once java is installed, go to http://www.broadinstitute.org/igv/ and register in order to get access to the downloads page. Once you have gained access to the download page, click on the appropriate launch button that matches the amount of memory available on your laptop (if you have space, 1.2GB is good, more is better).   
+## Module 4: Reference Free Alignment
 
-**Note** Chrome does not launch "java webstart" files by default. Instead, the launch buttons below will download a "jnlp" file. This should appear in the lower left corner of the browser. Double-click the downloaded file to run.   
+*<font color="#827e9c">Malachi Griffith</font>* 
 
-**Windows users:** To run with more than 1.2 GB you must install 64-bit Java. This is often not installed by default even with the latest Windows 7 machines with many GB of memory. In general trying to launch with more memory than your OS/Java combination supports will result in the obscure error "could not create virtual machine".
+[Kallisto](https://github.com/griffithlab/rnaseq_tutorial/wiki/Kallisto)  
 
-6) SSH client - Mac and Linux users already have a command line ssh program that can be run from the terminal. For Windows users, please download [PuTTY](http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html).  
+## Integrated Assignment
 
-7) SCP/SFTP client - We will be moving data from the servers to the student laptops for visualization. Mac and Linux users already have a command line scp and sftp program. For Windows users, please install [WinSCP](http://winscp.net/eng/download.php).
+[Assignment Questions](https://github.com/griffithlab/rnaseq_tutorial/wiki/Integrated-Assignment)  
 
-8) A PDF viewer (Adobe Acrobat or equivalent).  
+[Assignment Answers](https://github.com/griffithlab/rnaseq_tutorial/wiki/Integrated-Assignment-Answers)  
+
+## Keeping Up-to-date with RNA-Seq Analysis Developments
+
+For additional resources, tutorials, future directions, and more please refer to the [RNA-seq wiki](http://www.rnaseq.wiki/)
+
+***
+
+# Day 3 <a id="day3"></a>
+
+## Module 5: Genome Guided and Genome-Free Transcriptome Assembly
+
+*<font color="#827e9c">Brian Haas</font>* 
+
+[Lecture](https://drive.google.com/open?id=1cZgeKxSFysUReMhgZxstI112qX8xq8Uv)  
+
+[Bandage](https://rrwick.github.io/Bandage/)  
+
+[Lab practical](https://bioinformaticsdotca.github.io/rnaseq_2018_tutorial5)  
+
+
+## Module 6: Functional Annotation and Analysis of Transcripts
+
+*<font color="#827e9c">Brian Haas</font>* 
+
+[Lecture](https://drive.google.com/open?id=1b1opRzV_IK4QSJHXo-B-iQvBFenV_23h)  
+
+[Lab practical](https://bioinformaticsdotca.github.io/rnaseq_2018_tutorial6)  
+
+***  
 
 ## Additional Optional Resources 
 
 Additional resources can be found on the [RNA-Seq wiki](https://github.com/griffithlab/rnaseq_tutorial/wiki/Resources).
 
-Please note that these instructions may change before the workshop.  
+  
