@@ -60,7 +60,7 @@ There are paired-end FASTQ formatted Illlumina read files for each of the two co
 
 Copy the data over to your workspace like so:
 
-    % cp -r ~/CourseData/RNA_data/trinity_trinotate_tutorial/seq_data data
+    % cp -r ~/CourseData/RNA_data/trinity_trinotate_tutorial_2018/C_glabrata data
 
 
 All RNA-Seq data sets can be found in your new data/ subdirectory:
@@ -292,9 +292,20 @@ To estimate the expression levels of the Trinity-reconstructed transcripts, we u
 
 We include a script to faciliate running of RSEM on Trinity transcript assemblies.  The script we execute below will run the Bowtie aligner to align reads to the Trinity transcripts, and RSEM will then evaluate those alignments to estimate expression values.  Again, we need to run this separately for each sample and biological replicate (ie. each pair of fastq files).
 
+_For the next step, we need to modify one of the scripts provided by Trinity. To do this, we'll copy the file into our current working directory, and then use 'nano' to modify the line_
+```
+cp $TRINITY_HOME/util/align_and_estimate_abundance.pl .
+nano align_and_estimate_abundance.pl
+```
+_Once nano is open, navigate to the section that begins with "&GetOptions ( 'help|h' => \$help_flag". Navigate about 19 lines down to the line that has the following:_
+```
+#'output_prefix=s' => \$output_prefix,
+```
+_Remove the # from that line to enable that option (it should no longer be green/commented). Then to exit nano, use Ctrl+x followed by a y, and then pressing enter._ 
+
 Let's start with one of the GSNO treatment fastq pairs like so:
 
-     %  $TRINITY_HOME/util/align_and_estimate_abundance.pl --seqType fq \
+     %  ./align_and_estimate_abundance.pl --seqType fq \
              --left data/GSNO_SRR1582648_1.fastq \
              --right data/GSNO_SRR1582648_2.fastq  \
              --transcripts trinity_out_dir/Trinity.fasta  \
@@ -358,7 +369,7 @@ Running this on all the samples can be montonous, and with many more samples, ad
 
 Process fastq pair 2:
 
-     % $TRINITY_HOME/util/align_and_estimate_abundance.pl --seqType fq  \
+     % ./align_and_estimate_abundance.pl --seqType fq  \
              --left data/GSNO_SRR1582646_1.fastq \
              --right data/GSNO_SRR1582646_2.fastq \
              --transcripts trinity_out_dir/Trinity.fasta \
@@ -369,7 +380,7 @@ Process fastq pair 2:
 
 Process fastq pair 3:
 
-     % $TRINITY_HOME/util/align_and_estimate_abundance.pl --seqType fq \
+     % ./align_and_estimate_abundance.pl --seqType fq \
         --left data/GSNO_SRR1582647_1.fastq \
         --right data/GSNO_SRR1582647_2.fastq \
         --transcripts trinity_out_dir/Trinity.fasta  \
@@ -382,7 +393,7 @@ Now we're done with processing the GSNO-treated biological replicates, and we'll
 
 Process fastq pair 4:
 
-     % $TRINITY_HOME/util/align_and_estimate_abundance.pl --seqType fq \
+     % ./align_and_estimate_abundance.pl --seqType fq \
          --left data/wt_SRR1582649_1.fastq \
          --right data/wt_SRR1582649_2.fastq \
          --transcripts trinity_out_dir/Trinity.fasta \
@@ -393,7 +404,7 @@ Process fastq pair 4:
 
 Process fastq pair 5:
 
-    % $TRINITY_HOME/util/align_and_estimate_abundance.pl --seqType fq \
+    % ./align_and_estimate_abundance.pl --seqType fq \
          --left data/wt_SRR1582651_1.fastq \
          --right data/wt_SRR1582651_2.fastq  \
          --transcripts trinity_out_dir/Trinity.fasta \
@@ -404,7 +415,7 @@ Process fastq pair 5:
 
 Process fastq pair 6 (last one!!):
 
-    % $TRINITY_HOME/util/align_and_estimate_abundance.pl --seqType fq \
+    % ./align_and_estimate_abundance.pl --seqType fq \
          --left data/wt_SRR1582650_1.fastq \
          --right data/wt_SRR1582650_2.fastq \
          --transcripts trinity_out_dir/Trinity.fasta \
@@ -419,6 +430,7 @@ Now, given the expression estimates for each of the transcripts in each of the s
 
     % $TRINITY_HOME/util/abundance_estimates_to_matrix.pl --est_method RSEM \
           --out_prefix Trinity_trans \
+	  --gene_trans_map none \
           GSNO_SRR1582648.RSEM/GSNO_SRR1582648.isoforms.results \
           GSNO_SRR1582646.RSEM/GSNO_SRR1582646.isoforms.results \
           GSNO_SRR1582647.RSEM/GSNO_SRR1582647.isoforms.results \
@@ -430,7 +442,7 @@ Now, given the expression estimates for each of the transcripts in each of the s
 
 You should find a matrix file called 'Trinity_trans.counts.matrix', which contains the counts of RNA-Seq fragments mapped to each transcript. Examine the first few lines of the counts matrix:
 
-    % head -n20 Trinity_trans.counts.matrix | column -t
+    % head -n20 Trinity_trans.isoform.counts.matrix | column -t
 
 .
 
