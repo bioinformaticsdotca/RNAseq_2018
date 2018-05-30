@@ -42,9 +42,9 @@ you should see:
 
 ## Setting up your workspace
 
-In your home directory, create a new workspace called 'workspace_GG' (with the 'GG' short for genome-guided).
+In your workspace directory, create a new workspace called 'workspace_GG' (with the 'GG' short for genome-guided).
 
-    %  cd ~  # change to home directory
+    %  cd ~/workspace  # change to home directory
 
     %  mkdir workspace_GG
 
@@ -142,7 +142,7 @@ Examine the contents of the bam file using 'samtools':
 
 
 
->Examine the reads aligned to the genome using IGV. Download the minigenome.fa and .gtf files along with alignments.hisat2.bam file.   Don't forget to first index the .bam (to .bai) and .fa (to .fai) files before loading into IGV.  (Do you remember the indexing commands for .bam and .fa files?  hint: use 'samtools')
+>Examine the reads aligned to the genome using IGV.  Don't forget to first index the .bam (to .bai) and .fa (to .fai) files before loading into IGV.  (Do you remember the indexing commands for .bam and .fa files?  hint: use 'samtools').  Also load in the reference annotation file 'minigenome.gtf' to provide additional perspective.
 
 
 ## Transcript reconstruction using StringTie
