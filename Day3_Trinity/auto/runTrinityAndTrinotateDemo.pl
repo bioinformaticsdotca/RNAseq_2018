@@ -5,13 +5,20 @@ use warnings;
 use File::Basename;
 use FindBin;
 use Cwd;
+<<<<<<< HEAD
+use Carp;
+=======
+>>>>>>> 5b980c773897278a30c5409246275aea8a5fae4d
 
 use lib ("$FindBin::Bin/PerlLib");
 use IniReader;
 
 use Getopt::Long qw(:config no_ignore_case bundling pass_through);
 
+<<<<<<< HEAD
+=======
 
+>>>>>>> 5b980c773897278a30c5409246275aea8a5fae4d
 my $trinotate_conf_file = "$FindBin::Bin/conf.txt";
 
 my $usage = <<__EOUSAGE__;
@@ -58,7 +65,15 @@ $ENV{PATH} .= ":$trinity_dir";  ## adding it to our PATH setting.
 my $trinotate_dir = $ENV{TRINOTATE_HOME} or die "Error, need env var TRINOTATE_HOME set to Trinotate installation directory (note this is different than Trinity) ";
 
 unless ($ENV{TRANSDECODER_HOME}) {
+<<<<<<< HEAD
+    $ENV{TRANSDECODER_HOME} = "$ENV{HOME}/GITHUB/TransDecoder";
+}
+
+if (! -d "$ENV{TRANSDECODER_HOME}") {
+    die "Error, cannot locate TransDecoder dir at  env var setting:  $ENV{TRANSDECODER_HOME} ";
+=======
     die "Error, must set env var TRANSDECODER_HOME ";
+>>>>>>> 5b980c773897278a30c5409246275aea8a5fae4d
 }
 $ENV{PATH} = "$trinity_dir/trinity-plugins/BIN/:$ENV{TRANSDECODER_HOME}:$ENV{PATH}";
 
@@ -99,6 +114,8 @@ unless (-d $checkpoints_dir) {
 }
 
 
+<<<<<<< HEAD
+=======
 my %samples = ( 
     'GSNO' => {
         'GSNO_SRR1582646' => [ 'data/GSNO_SRR1582646_1.fastq',
@@ -121,17 +138,23 @@ my %samples = (
     );
 
 
+>>>>>>> 5b980c773897278a30c5409246275aea8a5fae4d
 my $STEP_COUNT = 0; # incremented at each process_cmd
 
 
 ##############
 # run Trinity.
 
+<<<<<<< HEAD
+my $run_Trinity_cmd = "$trinity_dir/Trinity --seqType fq "
+    . " --samples_file data/samples.txt "
+=======
 my ($left_fq_files_aref, $right_fq_files_aref) = &get_fq_files_listings(%samples);
 
 my $run_Trinity_cmd = "$trinity_dir/Trinity --seqType fq "
     . " --left " . join(",", @$left_fq_files_aref)
     . " --right " . join(",", @$right_fq_files_aref) 
+>>>>>>> 5b980c773897278a30c5409246275aea8a5fae4d
     . " --CPU 2 --max_memory 2G --min_contig_length 150 "; 
 
 
@@ -151,19 +174,80 @@ my $run_Trinity_cmd = "$trinity_dir/Trinity --seqType fq "
 ## representation of reads by the assembly
 &process_cmd("bowtie2-build trinity_out_dir/Trinity.fasta trinity_out_dir/Trinity.fasta", "$checkpoints_dir/bowtie2_build_read_assess.ok");
 
+<<<<<<< HEAD
+&process_cmd("bowtie2 --local --no-unal -x trinity_out_dir/Trinity.fasta -q -1 data/wt_SRR1582651_1.fastq -2 data/wt_SRR1582651_2.fastq | samtools view -Sb - | samtools sort -o - - > bowtie2.bam", "$checkpoints_dir/bowtie2_align_reads_assessss.ok");
+
+
+## Examine read alignments in IGV
+
+&process_cmd("samtools index bowtie2.bam", "$checkpoints_dir/idx_bowtie_alignments.ok");
+
+my $igv_cmd = "igv.sh -g trinity_out_dir/Trinity.fasta bowtie2.bam";
+if ($AUTO_MODE) {
+    $igv_cmd .= " & ";
+}
+#&process_cmd($igv_cmd, "$checkpoints_dir/igv_trinity_reads.ok")
+;
+=======
 &process_cmd("bowtie2 --local --no-unal -x trinity_out_dir/Trinity.fasta -q -1 data/wt_SRR1582651_1.fastq -2 data/wt_SRR1582651_2.fastq | samtools view -Sb - | samtools sort -o - - > bowtie2.nameSorted.bam", "$checkpoints_dir/bowtie2_align_reads_assess.ok");
 
 
+>>>>>>> 5b980c773897278a30c5409246275aea8a5fae4d
 
 ###########################################
 ## assess number of full-length transcripts
 
 &process_cmd("blastx -query trinity_out_dir/Trinity.fasta -db data/mini_sprot.pep -out blastx.outfmt6 -evalue 1e-20 -num_threads 2 -max_target_seqs 1 -outfmt 6", "$checkpoints_dir/blastx_for_full_length.ok");
 
+<<<<<<< HEAD
+&process_cmd("head blastx.outfmt6 | column -t", "$checkpoints_dir/check_blast_output.ok");
+
+=======
+>>>>>>> 5b980c773897278a30c5409246275aea8a5fae4d
 &process_cmd("$trinity_dir/util/analyze_blastPlus_topHit_coverage.pl blastx.outfmt6 trinity_out_dir/Trinity.fasta data/mini_sprot.pep", "$checkpoints_dir/tophat_blast_cov_stats.ok");
 
 
 ###################################
+<<<<<<< HEAD
+## Abundance estimation using salmon
+###################################
+
+
+my $align_estimate_command = "$trinity_dir/util/align_and_estimate_abundance.pl --seqType fq "
+    . " --samples_file data/samples.txt "
+    . " --transcripts trinity_out_dir/Trinity.fasta "
+    . " --est_method salmon "
+    . " --trinity_mode  "
+    . " --prep_reference "
+    . " --output_dir salmon";
+
+&process_cmd($align_estimate_command, "$checkpoints_dir/salmon_expr_estimate.ok");
+
+&process_cmd("ls -ltr", "$checkpoints_dir/see_expr_output_dir_results.ok");
+
+&process_cmd("ls -ltr wt_SRR1582651", "$checkpoints_dir/show_expr_sample_out_dir.ok");
+
+&process_cmd("head wt_SRR1582651/quant.sf | column -t", "$checkpoints_dir/show_quant_sf.ok");
+
+
+my $get_quant_file_listing_cmd = 'find wt_* GSNO_* -name "quant.sf" | tee quant_files.list';
+&process_cmd($get_quant_file_listing_cmd, "$checkpoints_dir/salmon_quant_files.list.ok");
+
+
+my $make_matrix_cmd = "$trinity_dir/util/abundance_estimates_to_matrix.pl --est_method salmon --out_prefix Trinity --name_sample_by_basedir --quant_files quant_files.list --gene_trans_map trinity_out_dir/Trinity.fasta.gene_trans_map";
+
+&process_cmd($make_matrix_cmd, "$checkpoints_dir/get_matrix.ok");
+
+
+# look at the output
+&process_cmd("head  Trinity.isoform.counts.matrix | column -t ", "$checkpoints_dir/head.trinity_isoform_counts.ok");
+
+&process_cmd("head Trinity.isoform.TMM.EXPR.matrix | column -t", "$checkpoints_dir/head.trinity_expr.ok");
+
+
+## Examine the E90N50 statistic
+&process_cmd("$trinity_dir//util/misc/contig_ExN50_statistic.pl Trinity.isoform.TMM.EXPR.matrix trinity_out_dir/Trinity.fasta > ExN50.stats", "$checkpoints_dir/ExNstats.ok");
+=======
 ## Abundance estimation using RSEM
 ###################################
 
@@ -238,6 +322,7 @@ close $ofh; # samples.txt
 
 ## Examine the E90N50 statistic
 &process_cmd("$trinity_dir//util/misc/contig_ExN50_statistic.pl  Trinity_trans.TMM.EXPR.matrix trinity_out_dir/Trinity.fasta > ExN50.stats", "$checkpoints_dir/ExNstats.ok");
+>>>>>>> 5b980c773897278a30c5409246275aea8a5fae4d
 
 &process_cmd("cat ExN50.stats", "$checkpoints_dir/cat_ExNstats.ok");
 
@@ -246,6 +331,8 @@ close $ofh; # samples.txt
 
 &show("ExN50.stats.plot.pdf");
 
+<<<<<<< HEAD
+=======
 ## Examine read alignments in IGV
 
 print "\n\n\t** View data using IGV:\n\tgenome: trinity_out_dir/Trinity.fasta\n\tbams: @bam_files\n\n";
@@ -255,12 +342,29 @@ print "\n\n\t** View data using IGV:\n\tgenome: trinity_out_dir/Trinity.fasta\n\
 #    $igv_cmd .= " & ";
 #}
 #&process_cmd($igv_cmd, "$checkpoints_dir/igv_trinity_reads.ok");
+>>>>>>> 5b980c773897278a30c5409246275aea8a5fae4d
 
 
 ##############
 ## DE analysis
 ##############
 
+<<<<<<< HEAD
+
+## run edgeR
+&process_cmd("$trinity_dir/Analysis/DifferentialExpression/run_DE_analysis.pl --matrix Trinity.isoform.counts.matrix --samples_file data/samples.txt --method DESeq2 --output DESeq2_trans", "$checkpoints_dir/run.DESeq2_trans.ok");
+
+# take a look at what edgeR generated:
+&process_cmd("ls -ltr DESeq2_trans/", "$checkpoints_dir/ls.DESeq2_trans.dir.ok");
+
+&process_cmd("head DESeq2_trans/Trinity.isoform.counts.matrix.GSNO_vs_wt.DESeq2.DE_results | column -t ", "$checkpoints_dir/head.DESeq2_trans.DE_results.ok");
+
+&show("DESeq2_trans/Trinity.isoform.counts.matrix.GSNO_vs_wt.DESeq2.DE_results.MA_n_Volcano.pdf");
+
+&change_dir("DESeq2_trans", "$checkpoints_dir/cd.DESeq2.ok");
+
+&process_cmd("$trinity_dir/Analysis/DifferentialExpression/analyze_diff_expr.pl --matrix ../Trinity.isoform.TMM.EXPR.matrix --samples ../data/samples.txt -P 1e-3 -C 2",
+=======
 ## make a samples file
 &process_cmd("cat samples.txt", "$checkpoints_dir/examine_samples_txt.ok");
 
@@ -280,6 +384,7 @@ print "\n\n\t** View data using IGV:\n\tgenome: trinity_out_dir/Trinity.fasta\n\
 &change_dir("edgeR_trans", "$checkpoints_dir/cd.edgeR.ok");
 
 &process_cmd("$trinity_dir/Analysis/DifferentialExpression/analyze_diff_expr.pl --matrix ../Trinity_trans.TMM.EXPR.matrix --samples ../samples.txt -P 1e-3 -C 2",
+>>>>>>> 5b980c773897278a30c5409246275aea8a5fae4d
              "$checkpoints_dir/analyze_diff_expr.ok");
 
 
@@ -295,11 +400,19 @@ print "\n\n\t** View data using IGV:\n\tgenome: trinity_out_dir/Trinity.fasta\n\
 
 ## Now run the DE analysis for the genes
 
+<<<<<<< HEAD
+&change_dir("../", "$checkpoints_dir/cd_back_to_wd_after_DESeq2.ok");
+
+&process_cmd("$trinity_dir/Analysis/DifferentialExpression/run_DE_analysis.pl --matrix Trinity.gene.counts.matrix --samples_file data/samples.txt  --method DESeq2 --output DESeq2_gene", "$checkpoints_dir/gene_DE_analysis.ok");
+
+&process_cmd("ls -ltr DESeq2_gene/", "$checkpoints_dir/ls_DESeq2_gene_dir.ok");
+=======
 &change_dir("../", "$checkpoints_dir/cd_back_to_wd_after_edgeR.ok");
 
 &process_cmd("$trinity_dir/Analysis/DifferentialExpression/run_DE_analysis.pl --matrix Trinity_genes.counts.matrix --samples_file samples.txt  --method edgeR --output edgeR_gene", "$checkpoints_dir/gene_DE_analysis.ok");
 
 &process_cmd("ls -ltr edgeR_gene/", "$checkpoints_dir/ls_edgeR_gene_dir.ok");
+>>>>>>> 5b980c773897278a30c5409246275aea8a5fae4d
 
 #########################
 ## Time now for Trinotate
@@ -308,12 +421,28 @@ print "\n\n\t** View data using IGV:\n\tgenome: trinity_out_dir/Trinity.fasta\n\
 &process_cmd("pwd", "$checkpoints_dir/ensure_pwd_pre_Trinotate.ok");
 
 
+<<<<<<< HEAD
+# run the Trinotate bioinf processing and generate report
+&run_Trinotate_demo(); # note, this cd's into Trinotate
+=======
 &run_Trinotate_demo(); # cd's into Trinotate
+>>>>>>> 5b980c773897278a30c5409246275aea8a5fae4d
 
 #######################################
 ## Prep TrinotateWeb w/ Expression Data
 #######################################
 
+<<<<<<< HEAD
+&change_dir("../Trinotate", "$checkpoints_dir/cd_back_to_Trinotate_from_DESeq2.ok");
+
+&process_cmd("$trinotate_dir/util/transcript_expression/import_expression_and_DE_results.pl --sqlite Trinotate.sqlite --transcript_mode --samples_file ../data/samples.txt --count_matrix ../Trinity.isoform.counts.matrix --fpkm_matrix ../Trinity.isoform.TMM.EXPR.matrix",
+             "$checkpoints_dir/Trinotate.load_trans_expr_data.ok");
+
+&process_cmd("$trinotate_dir/util/transcript_expression/import_expression_and_DE_results.pl --sqlite Trinotate.sqlite --transcript_mode --samples_file ../data/samples.txt --DE_dir ../DESeq2_trans",
+    "$checkpoints_dir/Trinotate.load_trans_DE_data.ok");
+
+&process_cmd("$trinotate_dir/util/transcript_expression/import_transcript_clusters.pl --sqlite Trinotate.sqlite --group_name DE_all_vs_all --analysis_name diffExpr.P1e-3_C2.matrix.RData.clusters_fixed_P_60 ../DESeq2_trans/diffExpr.P1e-3_C2.matrix.RData.clusters_fixed_P_60/*matrix",
+=======
 &change_dir("../Trinotate", "$checkpoints_dir/cd_back_to_Trinotate_from_edgeR.ok");
 
 &process_cmd("$trinotate_dir/util/transcript_expression/import_expression_and_DE_results.pl --sqlite Trinotate.sqlite --transcript_mode --samples_file ../samples.txt --count_matrix ../Trinity_trans.counts.matrix --fpkm_matrix ../Trinity_trans.TMM.EXPR.matrix",
@@ -323,18 +452,29 @@ print "\n\n\t** View data using IGV:\n\tgenome: trinity_out_dir/Trinity.fasta\n\
     "$checkpoints_dir/Trinotate.load_trans_DE_data.ok");
 
 &process_cmd("$trinotate_dir/util/transcript_expression/import_transcript_clusters.pl --sqlite Trinotate.sqlite --group_name DE_all_vs_all --analysis_name diffExpr.P1e-3_C2.matrix.RData.clusters_fixed_P_60 ../edgeR_trans/diffExpr.P1e-3_C2.matrix.RData.clusters_fixed_P_60/*matrix",
+>>>>>>> 5b980c773897278a30c5409246275aea8a5fae4d
              "$checkpoints_dir/Trinotate.load_expr_clusters.ok");
 
 # load in the gene results
 
+<<<<<<< HEAD
+&process_cmd("$trinotate_dir/util/transcript_expression/import_expression_and_DE_results.pl  --sqlite Trinotate.sqlite --gene_mode  --samples_file ../data/samples.txt --count_matrix ../Trinity.gene.counts.matrix --fpkm_matrix ../Trinity.gene.TMM.EXPR.matrix", "$checkpoints_dir/Trinotate.load_gene_expr_data.ok");
+
+&process_cmd("$trinotate_dir/util/transcript_expression/import_expression_and_DE_results.pl --sqlite Trinotate.sqlite --gene_mode  --samples_file ../data/samples.txt --DE_dir ../DESeq2_gene ", "$checkpoints_dir/Trinotate.load_gene_DE_data.ok");
+=======
 &process_cmd("$trinotate_dir/util/transcript_expression/import_expression_and_DE_results.pl  --sqlite Trinotate.sqlite --gene_mode  --samples_file ../samples.txt --count_matrix ../Trinity_genes.counts.matrix --fpkm_matrix ../Trinity_genes.TMM.EXPR.matrix", "$checkpoints_dir/Trinotate.load_gene_expr_data.ok");
 
 &process_cmd("$trinotate_dir/util/transcript_expression/import_expression_and_DE_results.pl --sqlite Trinotate.sqlite --gene_mode  --samples_file ../samples.txt --DE_dir ../edgeR_gene ", "$checkpoints_dir/Trinotate.load_gene_DE_data.ok");
+>>>>>>> 5b980c773897278a30c5409246275aea8a5fae4d
 
 
 print STDERR "\n\n\tCommand-line Demo complete.  Congratulations! :)  Now explore your data via TrinotateWeb\n\n\n\n";
 
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> 5b980c773897278a30c5409246275aea8a5fae4d
 exit(0);
 
 ####
@@ -346,9 +486,13 @@ sub process_cmd {
     }
     
     $STEP_COUNT++;
+<<<<<<< HEAD
+    
+=======
     #$checkpoint .= "s_" . sprintf("%02i", $STEP_COUNT);
     
 
+>>>>>>> 5b980c773897278a30c5409246275aea8a5fae4d
     if (-e $checkpoint) { return; }
 
     
@@ -376,9 +520,15 @@ sub process_cmd {
     
     my $ret = system($cmd);
     if ($ret) {
+<<<<<<< HEAD
+        confess  "Error, cmd: $cmd died with ret $ret";
+    }
+    
+=======
         die "Error, cmd: $cmd died with ret $ret";
     }
 
+>>>>>>> 5b980c773897278a30c5409246275aea8a5fae4d
     system("touch $checkpoint");
     
     return;
@@ -388,11 +538,15 @@ sub process_cmd {
 sub show {
     my ($image) = @_;
 
+<<<<<<< HEAD
+    return;
+=======
     print "\n\n\t**  view image file: $image\n\n";
 
     return;
 
     
+>>>>>>> 5b980c773897278a30c5409246275aea8a5fae4d
     
     my $cmd;
 

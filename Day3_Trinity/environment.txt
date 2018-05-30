@@ -1,5 +1,18 @@
 
+<<<<<<< HEAD
+alias c=cat
+alias m=less
+alias ls='ls --color'
+alias e='emacs'
+
+
+export TRINITY_HOME=/usr/local/trinityrnaseq-Trinity-v2.6.5/
+export TRINOTATE_HOME=/usr/local/Trinotate-Trinotate-v3.1.1
+export TRANSDECODER_HOME=/usr/local/TransDecoder-TransDecoder-v5.3.0/
+export PATH=${TRINITY_HOME}:${TRINOTATE_HOME}:${TRANSDECODER_HOME}:/usr/local/bin/signalp-4.1/:/usr/local/bin/tmhmm-2.0c/bin:${PATH}:/usr/local/hmmer-3.1b2-linux-intel-x86_64/binaries/
+=======
 export TRINITY_HOME=/usr/local/trinity
 export TRINOTATE_HOME=/usr/local/bin/Trinotate
 export TRANSDECODER_HOME=/usr/local/bin/TransDecoder-3.0.1/
 export PATH=${TRINITY_HOME}:${TRINOTATE_HOME}:${TRANSDECODER_HOME}:/usr/local/bin/signalp-4.1/:/usr/local/bin/tmhmm-2.0c/bin:${PATH}
+>>>>>>> 5b980c773897278a30c5409246275aea8a5fae4d

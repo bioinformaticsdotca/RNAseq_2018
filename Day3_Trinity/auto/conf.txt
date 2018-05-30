@@ -18,7 +18,11 @@ TMHMM_PROG=tmhmm
 # dbs
 SWISSPROT_PEP=../data/mini_sprot.pep
 PFAM_DB=../data/trinotate_data/Pfam-A.hmm
+<<<<<<< HEAD
+TRINOTATE_BOILERPLATE=../data/trinotate_data/Trinotate.boilerplate.sqlite
+=======
 TRINOTATE_BOILERPLATE=../../trinotate_databases/Trinotate.sqlite
+>>>>>>> 5b980c773897278a30c5409246275aea8a5fae4d
 
 
 ####################
@@ -67,13 +71,21 @@ CMD=hmmscan --cpu {__CPU__} --domtblout TrinotatePFAM.out {__PFAM_DB__} Trinity.
 
 [SIGNALP]
 RANK=500
+<<<<<<< HEAD
+RUN=F
+=======
 RUN=T
+>>>>>>> 5b980c773897278a30c5409246275aea8a5fae4d
 CMD={__SIGNALP_PROG__} -f short -n signalp.out Trinity.fasta.transdecoder.pep > sigP.log
 
 
 [TMHMM]
 RANK=600
+<<<<<<< HEAD
+RUN=F
+=======
 RUN=T
+>>>>>>> 5b980c773897278a30c5409246275aea8a5fae4d
 CMD={__TMHMM_PROG__} --short < Trinity.fasta.transdecoder.pep > tmhmm.out
 
 [RNAMMER]
@@ -119,12 +131,20 @@ CMD={__TRINOTATE_HOME__}/Trinotate  Trinotate.sqlite LOAD_rnammer Trinity.fasta.
 
 [TRINOTATE_LOAD_TMHMM]
 RANK=1600
+<<<<<<< HEAD
+RUN=F
+=======
 RUN=T
+>>>>>>> 5b980c773897278a30c5409246275aea8a5fae4d
 CMD={__TRINOTATE_HOME__}/Trinotate  Trinotate.sqlite LOAD_tmhmm tmhmm.out
 
 [TRINOTATE_LOAD_SIGNALP]
 RANK=1700
+<<<<<<< HEAD
+RUN=F
+=======
 RUN=T
+>>>>>>> 5b980c773897278a30c5409246275aea8a5fae4d
 CMD={__TRINOTATE_HOME__}/Trinotate  Trinotate.sqlite LOAD_signalp signalp.out
 
 [TRINOTATE_REPORT]
