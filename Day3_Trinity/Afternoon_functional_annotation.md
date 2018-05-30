@@ -325,7 +325,8 @@ These data include the log fold change (log2FoldChange), mean expression (baseMe
 
 The DESeq2 analysis above generated both MA and Volcano plots based on these data. Examine any of these, such as 'DESeq2_trans/Trinity.isoform.counts.matrix.GSNO_vs_wt.DESeq2.DE_results.MA_n_Volcano.pdf' from within your web browser.
 
-<img src="images/volcano_plots.png" width=450 />
+
+<img src="https://github.com/bioinformaticsdotca/RNAseq_2018/blob/master/Day3_Trinity/images/volcano_plots.png?raw=true" alt="volcano_plots.png" width="750" />
 
 The red data points correspond to all those features that were identified as being significant with an FDR <= 0.05.
 
@@ -366,7 +367,7 @@ Also included among these files is a heatmap 'diffExpr.P1e-3_C2.matrix.log2.cent
 
 View file 'diffExpr.P1e-3_C2.matrix.log2.centered.genes_vs_samples_heatmap.pdf' from within your web browser.
 
-<img src="images/DE_genes_heatmap.png" width=450 />
+<img src="https://github.com/bioinformaticsdotca/RNAseq_2018/blob/master/Day3_Trinity/images/DE_genes_heatmap.png?raw=true" alt="DE_genes_heatmap.png" width="750" />
 
 The expression values are plotted in log2 space and mean-centered (mean expression value for each feature is subtracted from each of its expression values in that row), and shows upregulated expression as yellow and downregulated expression as purple. 
 
@@ -382,8 +383,7 @@ This creates a directory containing the individual transcript clusters, includin
 
 View file 'diffExpr.P1e-3_C2.matrix.RData.clusters_fixed_P_60/my_cluster_plots.pdf' from your web browser.
 
-<img src="images/DE_clusters.png" width=450 />
-
+<img src="https://github.com/bioinformaticsdotca/RNAseq_2018/blob/master/Day3_Trinity/images/DE_clusters.png?raw=true" alt="DE_clusters.png" width="750" />
 
 
 
@@ -694,13 +694,14 @@ Now, visit the following URL in Google Chrome: <http://localhost:8080/cgi-bin/in
 
 You should see a web form like so:
 
-<img src="images/TrinotateWeb_entrypoint2017.png" width=450 />
+
+<img src="https://github.com/bioinformaticsdotca/RNAseq_2018/blob/master/Day3_Trinity/images/TrinotateWeb_entrypoint2017.png?raw=true" alt="TrinotateWeb_entrypoint2017.png" width="750" />
 
 In the text box, put the path to your Trinotate.sqlite database, as shown above ("/home/ubuntu/workspace/trinity_and_trinotate/Trinotate/Trinotate.sqlite").  Click 'Submit'.
 
 You should now have TrinotateWeb running and serving the content in your Trinotate database:
 
-<img src="images/TrinotateWeb_homepage.png" width=450 />
+<img src="https://github.com/bioinformaticsdotca/RNAseq_2018/blob/master/Day3_Trinity/images/TrinotateWeb_homepage.png?raw=true" alt="TrinotateWeb_homepage.png" width="750" />
 
 Take some time to click the various tabs and explore what's available.
 
