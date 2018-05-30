@@ -1,4 +1,13 @@
-<<<<<<< HEAD
+---
+layout: tutorial_page
+permalink: /rnaseq_2018_tutorial6
+title: RNA-Seq
+header1: Workshop Pages for Students
+header2: Informatics for RNA-Seq Analysis
+image: /site_images/CBW_RNA_seq_icon.jpg
+home: https://bioinformaticsdotca.github.io/rnaseq_2018
+---
+
 # De novo RNA-Seq Assembly, Annotation, and Analysis Using Trinity and Trinotate
 
 The following details the steps involved in:
