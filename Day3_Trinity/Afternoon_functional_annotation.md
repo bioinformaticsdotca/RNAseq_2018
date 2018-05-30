@@ -19,9 +19,9 @@ Before we begin, set up your environment like so:
 
 ## Create your workspace
 
-    % mkdir ~/trinity_and_trinotate
+    % mkdir ~/workspace/trinity_and_trinotate
 
-    % cd ~/trinity_and_trinotate
+    % cd ~/workspace/trinity_and_trinotate
     
 ### Data Content:
 
@@ -391,7 +391,7 @@ Be sure you're in your base working directory:
 
 .
    
-    /home/ubuntu/trinity_and_trinotate
+    /home/ubuntu/workspace/trinity_and_trinotate
 
 
 Now, run the DE analysis at the gene level like so:
@@ -420,7 +420,7 @@ Again, let's make sure that we're back in our primary working directory called '
 
 .
 
-    /home/ubuntu/trinity_and_trinotate
+    /home/ubuntu/workspace/trinity_and_trinotate
 
 If you're not in the above directory, then relocate yourself to it.
 
@@ -550,7 +550,7 @@ As a sanity check, be sure you're currently located in your 'Trinotate/' working
     % pwd
 .
 
-    /home/ubuntu/trinity_and_trinotate/Trinotate
+    /home/ubuntu/workspace/trinity_and_trinotate/Trinotate
 
 
 Copy the provided Trinotate.sqlite boilerplate database into your Trinotate working directory like so:
@@ -622,7 +622,7 @@ Once again, verify that you're currently in the Trinotate/ working directory:
 
 .
 
-    /home/ubuntu/trinity_and_trinotate/Trinotate
+    /home/ubuntu/workspace/trinity_and_trinotate/Trinotate
     
 
 Now, load in the transcript expression data stored in the matrices we built earlier:
@@ -686,7 +686,7 @@ You should see a web form like so:
 
 <img src="images/TrinotateWeb_entrypoint2017.png" width=450 />
 
-In the text box, put the path to your Trinotate.sqlite database, as shown above ("/home/ubuntu/trinity_and_trinotate/Trinotate/Trinotate.sqlite").  Click 'Submit'.
+In the text box, put the path to your Trinotate.sqlite database, as shown above ("/home/ubuntu/workspace/trinity_and_trinotate/Trinotate/Trinotate.sqlite").  Click 'Submit'.
 
 You should now have TrinotateWeb running and serving the content in your Trinotate database:
 
