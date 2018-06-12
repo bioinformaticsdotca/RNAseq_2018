@@ -6,6 +6,9 @@ header1: Workshop Pages for Students
 header2: Informatics for RNA-Seq Analysis
 image: /site_images/CBW_RNA_seq_icon.jpg
 home: https://bioinformaticsdotca.github.io/rnaseq_2018
+description: De Novo Assembly-Morning
+author: Brian Haas
+modified: May 29th, 2018
 ---
 
 # Intro to Genome-guided RNA-Seq Assembly
