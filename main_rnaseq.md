@@ -5,10 +5,14 @@ title: RNA-Seq
 header1: Workshop Pages for Students
 header2: Informatics for RNA-Seq Analysis
 image: /site_images/CBW_RNA_seq_icon.jpg
+keywords: RNA-seq data, differential expression analysis, assemble transcripts
+description: Course providing an introduction to RNA-seq data analysis followed by integrated tutorials demonstrating the use of popular RNA-seq analysis packages.
+instructors: Malachi Griffith, Obi Griffith, Brian Haas, Fouad Yousif
+length: 3 days
 ---
 # Welcome <a id="welcome"></a>
 
-Welcome to Informatics for RNA-Seq Analysis 2018.  
+Welcome to Informatics for RNA-Seq Analysis 2018.
 
 The course schedule can be found [here](https://bioinformaticsdotca.github.io/rnaseq_2018_schedule).
 
