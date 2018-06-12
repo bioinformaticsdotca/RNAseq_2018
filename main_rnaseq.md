@@ -109,6 +109,8 @@ The full course notes are available as a [single PDF](https://drive.google.com/o
 *<font color="#827e9c">Obi Griffith</font>* 
 
 [Lecture](https://drive.google.com/open?id=1mIzbj7DkMcP8nNskdq4PllkFucZdtWv1)
+
+[Recording](https://www.youtube.com/watch?v=6XAw2Ru2Hfc&t=0s&index=2&list=PL3izGL6oi0S_lif045bSwBgbdwb9I1Hdo)
  
 ## Module 3: Expression and Differential Expression Lab Practical
 
