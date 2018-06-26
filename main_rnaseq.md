@@ -54,6 +54,8 @@ The full course notes are available as a [single PDF](https://drive.google.com/o
 
 [Lecture](https://drive.google.com/open?id=1iS1gJkQfmfjbtUtm0xPa0Un1Kc6zdUH_)   
 
+[Recording](https://www.youtube.com/watch?v=08h3-05Y9JY&list=PL3izGL6oi0S_lif045bSwBgbdwb9I1Hdo&index=2&t=0s)
+
 ### Lab Practical
 
 [Lab practical](https://drive.google.com/open?id=1XoMA39kL4tRS0T2I8Wu6odbzLoFgwAYd)
@@ -76,6 +78,8 @@ The full course notes are available as a [single PDF](https://drive.google.com/o
 *<font color="#827e9c">Fouad Yousif</font>* 
 
 [Lecture](https://drive.google.com/open?id=1qCsjyOGSVVRt5pO4h6rCLkO3vrDxlu0M)
+
+[Recording](https://www.youtube.com/watch?v=pdZ0-B3VfTw&list=PL3izGL6oi0S_lif045bSwBgbdwb9I1Hdo&index=3&t=0s)
 
 ## Integrated Assignment
 
